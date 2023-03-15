@@ -11,13 +11,14 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString
-public class Imagen implements Serializable {
+public class Usuario  extends Persona implements Serializable {
     @Id
     //autoinclementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_imagen;
+    private Integer codigo;
+
 
 }
