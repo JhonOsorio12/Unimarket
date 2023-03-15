@@ -17,6 +17,10 @@ public class Imagen implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_imagen;
 
+    //para dejar el atributo not null
+    @Column(nullable = false)
+    private String ruta;
+
     @ManyToOne
     private Producto producto;
 

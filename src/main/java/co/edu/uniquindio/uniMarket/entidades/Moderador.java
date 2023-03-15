@@ -16,7 +16,7 @@ import java.io.Serializable;
 @ToString
 public class Moderador extends Persona implements Serializable {
     @Id
-    //autoinclementable
+    //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 }
