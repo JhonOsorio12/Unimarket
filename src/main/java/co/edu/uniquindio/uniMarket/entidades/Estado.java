@@ -11,20 +11,13 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString
-public class Persona implements Serializable {
+public class Estado implements Serializable {
     @Id
+    //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    //para dejar el atributo not null y con un tamaño de caracteres
+    //para dejar el atributo no null y con un tamaño de caracteres
     @Column(nullable = false , length = 100)
     private String nombre;
-
-    //para dejar el atributo not null, con un tamaño de caracteres y que sea unico
-    @Column(nullable = false , length = 100, unique = true)
-    private String email;
-
-    //para dejar el atributo not null
-    @Column(nullable = false)
-    private String password;
 }

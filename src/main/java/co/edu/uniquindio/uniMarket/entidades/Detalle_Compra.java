@@ -1,6 +1,7 @@
 package co.edu.uniquindio.uniMarket.entidades;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,20 +12,19 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString
-public class Persona implements Serializable {
+public class Detalle_Compra implements Serializable {
     @Id
+    //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    //para dejar el atributo not null y con un tamaño de caracteres
-    @Column(nullable = false , length = 100)
-    private String nombre;
+    //para dejar el atributo no null
+    @Column(nullable = false)
+    private float precio_producto;
 
-    //para dejar el atributo not null, con un tamaño de caracteres y que sea unico
-    @Column(nullable = false , length = 100, unique = true)
-    private String email;
-
+    @Positive
     //para dejar el atributo not null
     @Column(nullable = false)
-    private String password;
+    private Integer unidades;
+
 }
