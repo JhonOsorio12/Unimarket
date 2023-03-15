@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Entity
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

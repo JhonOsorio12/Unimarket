@@ -21,6 +21,9 @@ public class Categoria implements Serializable {
     @Column(nullable = false , length = 100)
     private String nombre;
 
+    @ManyToOne
+    private Producto producto;
+
 
 
 }

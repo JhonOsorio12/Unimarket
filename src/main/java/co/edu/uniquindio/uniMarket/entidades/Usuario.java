@@ -1,12 +1,10 @@
 package co.edu.uniquindio.uniMarket.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +17,9 @@ public class Usuario  extends Persona implements Serializable {
     //autoinclementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Producto> productos;
 
 
 }
