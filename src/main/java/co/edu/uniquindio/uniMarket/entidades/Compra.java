@@ -12,18 +12,19 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 public class Compra implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer codigo;
 
     //Fecha not null y que se autocrea
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha_creacion;
 
-    private float valor_total;
+    @Column(nullable = false)
+    private float valorTotal;
 
     //para dejar el atributo no null
     @Enumerated(EnumType.STRING)

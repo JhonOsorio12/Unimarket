@@ -16,6 +16,7 @@ public class Detalle_Compra implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer codigo;
 
     //para dejar el atributo no null

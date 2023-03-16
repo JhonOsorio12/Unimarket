@@ -9,13 +9,12 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 public class Moderador extends Persona implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer codigo;
 
     @OneToMany(mappedBy = "moderadorPM")

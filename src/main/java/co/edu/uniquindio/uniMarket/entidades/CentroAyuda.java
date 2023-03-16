@@ -19,7 +19,7 @@ public class CentroAyuda implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigoAyuda;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String mensaje;
 
     @ManyToOne

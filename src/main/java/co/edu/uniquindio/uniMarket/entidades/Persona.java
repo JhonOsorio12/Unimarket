@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Persona implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 10)
     @EqualsAndHashCode.Include
     private Integer codigo;
 

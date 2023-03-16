@@ -17,6 +17,7 @@ public class CuentaPremium implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer códigoPremium;
 
     @Column(nullable = false)

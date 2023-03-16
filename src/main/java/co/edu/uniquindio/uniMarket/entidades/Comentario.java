@@ -16,6 +16,7 @@ public class Comentario implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Integer codigo;
 
     //para dejar el atributo not null y con un tamaño de caracteres

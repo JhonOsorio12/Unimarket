@@ -10,11 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Usuario  extends Persona implements Serializable {
     @Id
-    //autoinclementable
+    //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer codigo;
 
     //para dejar el atributo not null y con un tamaño de caracteres
@@ -22,7 +22,7 @@ public class Usuario  extends Persona implements Serializable {
     private String direccion;
 
     //para dejar el atributo not null y con un tamaño de caracteres
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 12)
     private Integer telefono;
 
     @ManyToMany
@@ -37,7 +37,6 @@ public class Usuario  extends Persona implements Serializable {
 
     @OneToOne(mappedBy = "usuario")
     private CuentaPremium cuentaPremium;
-
 
     @OneToMany(mappedBy = "usuario")
     private List<CentroAyuda> centroAyuda;

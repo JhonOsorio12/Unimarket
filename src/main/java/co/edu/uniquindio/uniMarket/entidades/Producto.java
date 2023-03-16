@@ -11,23 +11,26 @@ import java.util.Map;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 public class Producto implements Serializable {
     @Id
-    //autoinclementable
+    //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer codigo;
 
     //para dejar el atributo no null y con un tamaño de caracteres
     @Column(nullable = false , length = 100)
     private String nombre;
+
+     @Column(nullable = false)
     private Integer unidades ;
 
     //para dejar el atributo no null y con un tamaño de caracteres
     @Column(nullable = false , length = 1000)
     private String descripcion;
+    @Column(nullable = false)
     private float precio;
 
     @Column(nullable = false)

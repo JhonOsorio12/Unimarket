@@ -16,6 +16,7 @@ public class Producto_Moderador implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer codigo;
 
     //para dejar el atributo not null y con un tamaño de caracteres
