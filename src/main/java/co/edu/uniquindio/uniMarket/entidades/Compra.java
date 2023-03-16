@@ -33,7 +33,7 @@ public class Compra implements Serializable {
 
 
     @OneToMany(mappedBy = "compraDT")
-    private List<Detalle_Compra> detalleCompras;
+    private List<DetalleCompra> detalleCompras;
 
 
 

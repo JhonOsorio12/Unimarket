@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
-public class Detalle_Compra implements Serializable {
+public class DetalleCompra implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,8 +11,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
-public class Producto_Moderador implements Serializable {
+public class ProductoModerador implements Serializable {
     @Id
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
