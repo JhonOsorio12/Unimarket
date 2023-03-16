@@ -21,7 +21,7 @@ public class Detalle_Compra implements Serializable {
 
     //para dejar el atributo no null
     @Column(nullable = false)
-    private float precio_producto;
+    private float precioProducto;
 
     @Positive
     //para dejar el atributo not null
