@@ -58,6 +58,9 @@ public class Producto implements Serializable {
     @OneToMany(mappedBy = "productoPM")
     private List<Producto_Moderador> productoModerador;
 
+    @OneToMany(mappedBy = "productoCOM")
+    private List<Comentario> productoComentario;
+
 
 
 
