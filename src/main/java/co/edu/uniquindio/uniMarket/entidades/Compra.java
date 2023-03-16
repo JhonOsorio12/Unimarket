@@ -24,8 +24,9 @@ public class Compra implements Serializable {
 
     private float valor_total;
 
-    //para dejar el atributo no null y con un tamaño de caracteres
-    @Column(nullable = false , length = 100)
+    //para dejar el atributo no null
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false )
     private String medio_pago;
 
 

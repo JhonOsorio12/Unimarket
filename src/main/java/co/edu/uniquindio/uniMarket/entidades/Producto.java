@@ -6,6 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -33,19 +34,30 @@ public class Producto implements Serializable {
     private boolean activo;
 
     @Column(nullable = false)
-    private LocalDate fecha_creado;
+    private LocalDate fechaCreado;
 
     @Column(nullable = false)
-    private LocalDate fecha_limite;
+    private LocalDate fechaLimite;
+    @ElementCollection
+    @Column(nullable = false)
+    private Map<String, String> imagen;
+    @ElementCollection
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private List<Categoria> categoria;
+
+    @ManyToMany
+    private List<Usuario> usuarios;
 
     @ManyToOne
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "producto")
-    private List<Imagen> imagenes;
 
-    @OneToMany(mappedBy = "producto")
-    private List<Categoria> categorias;
+
+
+
+
+
 
 }
 

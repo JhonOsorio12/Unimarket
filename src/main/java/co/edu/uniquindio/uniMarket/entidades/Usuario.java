@@ -25,8 +25,14 @@ public class Usuario  extends Persona implements Serializable {
     @Column(nullable = false, length = 10)
     private Integer telefono;
 
+    @ManyToMany(mappedBy = "usuario")
+    private List<Producto> productos1;
+
     @OneToMany(mappedBy = "usuario")
     private List<Producto> productos;
+
+
+
 
 
 }
