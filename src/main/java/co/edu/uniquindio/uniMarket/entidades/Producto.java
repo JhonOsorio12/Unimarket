@@ -46,11 +46,17 @@ public class Producto implements Serializable {
     @Enumerated(EnumType.STRING)
     private List<Categoria> categoria;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "favoritos")
     private List<Usuario> usuarios;
 
     @ManyToOne
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "productoDT")
+    private List<Detalle_Compra> detalleCompras;
+
+    @OneToMany(mappedBy = "productoPM")
+    private List<Producto_Moderador> productoModerador;
 
 
 

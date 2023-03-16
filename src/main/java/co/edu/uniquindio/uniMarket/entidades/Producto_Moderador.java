@@ -26,4 +26,15 @@ public class Producto_Moderador implements Serializable {
     @Column(nullable = false)
     private LocalDate fecha;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Estado estado;
+
+    @ManyToOne
+    private Moderador moderadorPM;
+
+    @ManyToOne
+    private Producto productoPM;
+
+
 }

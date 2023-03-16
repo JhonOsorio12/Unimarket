@@ -27,4 +27,11 @@ public class Detalle_Compra implements Serializable {
     @Column(nullable = false)
     private Integer unidades;
 
+    @ManyToOne
+    private Producto productoDT;
+    @ManyToOne
+    private Compra compraDT;
+
+
+
 }

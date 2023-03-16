@@ -1,12 +1,10 @@
 package co.edu.uniquindio.uniMarket.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,4 +17,7 @@ public class Moderador extends Persona implements Serializable {
     //autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
+
+    @OneToMany(mappedBy = "moderadorPM")
+    private List<Producto_Moderador> moderadorProducto;
 }

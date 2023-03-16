@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,7 +28,11 @@ public class Compra implements Serializable {
     //para dejar el atributo no null
     @Enumerated(EnumType.STRING)
     @Column(nullable = false )
-    private String medio_pago;
+    private MetodoPago medioPago;
+
+
+    @OneToMany(mappedBy = "compraDT")
+    private List<Detalle_Compra> detalleCompras;
 
 
 
