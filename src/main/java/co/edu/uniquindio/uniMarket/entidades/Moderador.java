@@ -11,11 +11,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Moderador extends Persona implements Serializable {
-    @Id
-    //autoincrementable
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Integer codigo;
 
     @OneToMany(mappedBy = "moderadorPM")
     private List<ProductoModerador> moderadorProducto;

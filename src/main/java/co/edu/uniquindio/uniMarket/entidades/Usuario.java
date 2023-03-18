@@ -10,12 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Usuario  extends Persona implements Serializable {
-    @Id
-    //autoincrementable
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Integer codigo;
 
     //para dejar el atributo not null y con un tamaño de caracteres
     @Column(nullable = false, length = 100)
@@ -27,18 +23,22 @@ public class Usuario  extends Persona implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "favorito")
+    @ToString.Exclude
     private List<Producto> favoritos;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<Producto> productos;
 
     @OneToMany(mappedBy = "usuarioCOM")
+    @ToString.Exclude
     private List<Comentario> usuarioComentario;
 
     @OneToOne(mappedBy = "usuario")
     private CuentaPremium cuentaPremium;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<CentroAyuda> centroAyuda;
 
 
