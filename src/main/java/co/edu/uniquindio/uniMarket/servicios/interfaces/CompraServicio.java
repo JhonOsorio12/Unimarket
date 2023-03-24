@@ -1,4 +1,4 @@
-package co.edu.uniquindio.uniMarket.servicios;
+package co.edu.uniquindio.uniMarket.servicios.interfaces;
 
 import co.edu.uniquindio.uniMarket.DTO.CompraDTO;
 import co.edu.uniquindio.uniMarket.DTO.CompraGetDTO;

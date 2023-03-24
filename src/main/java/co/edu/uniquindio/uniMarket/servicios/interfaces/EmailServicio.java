@@ -1,4 +1,4 @@
-package co.edu.uniquindio.uniMarket.servicios;
+package co.edu.uniquindio.uniMarket.servicios.interfaces;
 
 public interface EmailServicio {
 

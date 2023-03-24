@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@ToString
 public class CuentaPremium implements Serializable {
 
     @Id

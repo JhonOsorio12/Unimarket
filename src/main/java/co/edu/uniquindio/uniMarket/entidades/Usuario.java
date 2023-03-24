@@ -19,7 +19,7 @@ public class Usuario  extends Persona implements Serializable {
 
     //para dejar el atributo not null y con un tamaño de caracteres
     @Column(nullable = false, length = 12)
-    private Integer telefono;
+    private String telefono;
 
     @ManyToMany
     @JoinTable(name = "favorito")

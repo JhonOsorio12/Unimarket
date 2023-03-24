@@ -1,6 +1,7 @@
 package co.edu.uniquindio.uniMarket.entidades;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class Compra implements Serializable {
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha_creacion;
 
+    @Positive
     @Column(nullable = false)
     private float valorTotal;
 
@@ -33,6 +35,7 @@ public class Compra implements Serializable {
 
 
     @OneToMany(mappedBy = "compraDT")
+    @ToString.Exclude
     private List<DetalleCompra> detalleCompras;
 
 

@@ -13,6 +13,7 @@ import java.util.Map;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@ToString
 public class Producto implements Serializable {
     @Id
     //autoincrementable
@@ -50,18 +51,22 @@ public class Producto implements Serializable {
     private List<Categoria> categoria;
 
     @ManyToMany(mappedBy = "favoritos")
+    @ToString.Exclude
     private List<Usuario> usuarios;
 
     @ManyToOne
     private Usuario usuario;
 
     @OneToMany(mappedBy = "productoDT")
+    @ToString.Exclude
     private List<DetalleCompra> detalleCompras;
 
     @OneToMany(mappedBy = "productoPM")
+    @ToString.Exclude
     private List<ProductoModerador> productoModerador;
 
     @OneToMany(mappedBy = "productoCOM")
+    @ToString.Exclude
     private List<Comentario> productoComentario;
 
 
