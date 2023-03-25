@@ -13,17 +13,14 @@ import org.hibernate.validator.constraints.Length;
 public class UsuarioDTO {
 
     @NotNull
-    @NotBlank
     @Length(min = 3,max = 100, message = "El nombre debe tener máximo 100 caracteres")
     private String nombre;
 
     @NotNull
-    @NotBlank
     @Length(max = 100, message = "El correo debe tener máximo 100 caracteres")
     private String email;
 
     @NotNull
-    @NotBlank
     private String direccion;
 
     @NotNull
@@ -31,7 +28,6 @@ public class UsuarioDTO {
     private String telefono;
 
     @NotNull
-    @NotBlank
     private String password;
 
 

@@ -1,12 +1,11 @@
 package co.edu.uniquindio.uniMarket.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class UsuarioGetDTO {
 
     private Integer codigoUsuario;
@@ -19,5 +18,4 @@ public class UsuarioGetDTO {
 
     private String telefono;
 
-    private String password;
 }

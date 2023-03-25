@@ -17,7 +17,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsuarioServicioImpl implements UsuarioServicio {
 
-    @Autowired
     private final UsuarioRepo usuarioRepo;
 
     @Override
@@ -34,21 +33,20 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
-    public int actualizarUsuario(Integer codigoUsuario, UsuarioDTO usuarioDTO) throws Exception {
-        /*
+    public UsuarioGetDTO actualizarUsuario(Integer codigoUsuario, UsuarioDTO usuarioDTO) throws Exception {
+
         Usuario buscado = usuarioRepo.buscarUsuario(usuarioDTO.getEmail());
 
-        *   if (buscado!=null){
-            throw new Exception("El correo ya está en uso");
+        if (buscado!=null){
+            throw new Exception("El correo "+usuarioDTO.getEmail()+" ya está en uso");
         }
-        *
-         */
+
         validarExiste(codigoUsuario);
 
         Usuario usuario = convertir(usuarioDTO);
         usuario.setCodigo(codigoUsuario);
 
-        return usuarioRepo.save(usuario).getCodigo();
+        return convertir(usuarioRepo.save(usuario));
 
     }
 
@@ -71,7 +69,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     }
 
-    private Usuario obtener(Integer codigoUsuario) throws Exception {
+    public Usuario obtener(Integer codigoUsuario) throws Exception {
         Optional<Usuario> usuario = usuarioRepo.findById(codigoUsuario);
 
         if(usuario.isEmpty() ){
@@ -80,6 +78,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
         return usuario.get();
     }
+
 
     private UsuarioGetDTO convertir(Usuario usuario){
 
@@ -112,6 +111,16 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         usuario.setPassword( usuarioDTO.getPassword() );
 
         return usuario;
+    }
+
+    @Override
+    public int marcarFavorito(Integer codigoUsuario, Integer codigoProducto) {
+        return 0;
+    }
+
+    @Override
+    public int eliminarFavorito(Integer codigoUsuario, Integer codigoProducto) {
+        return 0;
     }
 
     @Override

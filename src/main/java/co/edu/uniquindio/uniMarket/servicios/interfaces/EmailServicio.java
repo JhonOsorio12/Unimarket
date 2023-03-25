@@ -1,7 +1,9 @@
 package co.edu.uniquindio.uniMarket.servicios.interfaces;
 
+import co.edu.uniquindio.uniMarket.DTO.EmailDTO;
+
 public interface EmailServicio {
 
-    String enviarEmail(String asunto, String cuerpo, String para);
+    String enviarEmail(EmailDTO emailDTO);
 
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -22,26 +22,28 @@ public class Producto implements Serializable {
     private Integer codigo;
 
     //para dejar el atributo no null y con un tamaño de caracteres
-    @Column(nullable = false , length = 100)
+    @Column(nullable = false, length = 100)
     private String nombre;
-
-     @Column(nullable = false)
-    private Integer unidades ;
 
     //para dejar el atributo no null y con un tamaño de caracteres
     @Column(nullable = false , length = 1000)
     private String descripcion;
+
+     @Column(nullable = false)
+    private Integer unidades ;
+
     @Column(nullable = false)
     private float precio;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private boolean activo;
+    private Activo activo;
 
     @Column(nullable = false)
-    private LocalDate fechaCreado;
+    private LocalDateTime fechaCreado;
 
     @Column(nullable = false)
-    private LocalDate fechaLimite;
+    private LocalDateTime fechaLimite;
     @ElementCollection
     @Column(nullable = false)
     private Map<String, String> imagen;
@@ -55,7 +57,7 @@ public class Producto implements Serializable {
     private List<Usuario> usuarios;
 
     @ManyToOne
-    private Usuario usuario;
+    private Usuario vendedor;
 
     @OneToMany(mappedBy = "productoDT")
     @ToString.Exclude

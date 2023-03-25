@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CentroAyudaServicio {
 
-    CentroAyudaGetDTO crearMensaje(CentroAyudaDTO centroAyudaDTO);
+    int crearMensaje(CentroAyudaDTO centroAyudaDTO);
 
     List<CentroAyudaGetDTO> listarMensajesCentroAyuda(Integer codigoCentroAyuda);
 

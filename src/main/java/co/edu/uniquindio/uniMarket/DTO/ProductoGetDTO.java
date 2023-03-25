@@ -1,19 +1,27 @@
 package co.edu.uniquindio.uniMarket.DTO;
 
+import co.edu.uniquindio.uniMarket.entidades.Activo;
 import co.edu.uniquindio.uniMarket.entidades.Categoria;
+import co.edu.uniquindio.uniMarket.entidades.Estado;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class ProductoGetDTO {
 
     private Integer codigo;
 
-    private LocalDate fechaLimite;
+    private Activo estado;
 
-    private boolean activo;
-
-    private LocalDate fechaPublicacion;
+    private LocalDateTime fechaLimite;
 
     private String nombre;
 
@@ -25,7 +33,7 @@ public class ProductoGetDTO {
 
     private Integer codigoVendedor;
 
-    private List<String> imagenes;
+    private Map<String, String> imagenes;
 
     private List<Categoria> categorias;
 }

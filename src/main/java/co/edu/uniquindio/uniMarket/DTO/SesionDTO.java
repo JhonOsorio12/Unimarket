@@ -6,4 +6,6 @@ public class SesionDTO {
 
     private String password;
 
+    private int tipo;
+
 }

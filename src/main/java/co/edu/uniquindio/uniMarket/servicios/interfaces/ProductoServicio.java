@@ -9,17 +9,17 @@ import java.util.List;
 
 public interface ProductoServicio {
 
-    int crearProducto(ProductoDTO productoDTO);
+    int crearProducto(ProductoDTO productoDTO) throws Exception;
 
-    int eliminarProducto(Integer codigoProducto);
+    int eliminarProducto(Integer codigoProducto) throws Exception;
 
-    int actualizarProducto(Integer codigoProducto, ProductoDTO productoDTO);
+    int actualizarProducto(Integer codigoProducto, ProductoDTO productoDTO) throws Exception;
 
-    int actualizarPorEstado(Integer codigoProducto, Estado estado);
+    int actualizarPorEstado(Integer codigoProducto, Estado estado) throws Exception;
 
-    int actualizarPorCantidad(Integer codigoProducto, Integer unidades);
+    int actualizarPorCantidad(Integer codigoProducto, Integer unidades) throws Exception;
 
-    ProductoGetDTO obtenerProducto(Integer codigoProducto);
+    ProductoGetDTO obtenerProducto(Integer codigoProducto) throws Exception;
 
     List<ProductoGetDTO>listarProductosCategoria(Categoria categoria);
 
