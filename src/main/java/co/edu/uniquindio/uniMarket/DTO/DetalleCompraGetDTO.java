@@ -4,22 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @Getter
 @Setter
-public class ComentarioGetDTO {
+public class DetalleCompraGetDTO {
 
     private Integer codigo;
 
-    private String mensaje;
+    private Integer unidades;
+
+    private float precio;
 
     private Integer codigoProducto;
 
-    private Integer codigoUsuario;
+    private Integer codigoCompra;
 
-    private LocalDateTime fechaCreacion;
 
 }

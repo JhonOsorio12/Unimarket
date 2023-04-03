@@ -22,13 +22,12 @@ public class Compra implements Serializable {
 
     //Fecha not null y que se autocrea
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime fecha_creacion;
+    private LocalDateTime fechaCreacion;
 
     @Positive
     @Column(nullable = false)
     private float valorTotal;
 
-    //para dejar el atributo no null
     @Enumerated(EnumType.STRING)
     @Column(nullable = false )
     private MetodoPago medioPago;
@@ -36,7 +35,10 @@ public class Compra implements Serializable {
 
     @OneToMany(mappedBy = "compraDT")
     @ToString.Exclude
-    private List<DetalleCompra> detalleCompras;
+    private List<DetalleCompra> detalleCompra;
+
+    @ManyToOne
+    private Usuario usuario;
 
 
 

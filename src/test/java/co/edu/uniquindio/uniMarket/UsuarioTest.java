@@ -57,7 +57,7 @@ public class UsuarioTest {
         int codigoNuevo = usuarioServicio.registrarUsuario(usuarioDTO);
 
         //El servicio de actualizar nos retorna el usuario
-        UsuarioGetDTO usuarioActualizado = usuarioServicio.actualizarUsuario(codigoNuevo, new UsuarioDTO("Pepito Perez", "pepe1@email.com", "1234", "Calle 123", "1111"));
+        UsuarioGetDTO usuarioActualizado = usuarioServicio.actualizarUsuario(codigoNuevo, new UsuarioDTO("Pepito Perez", "pepe1@email.com", "Calle 123", "1234", "1111"));
 
         //Se comprueba que ahora el teléfono del usuario no es el que se usó cuando se creó inicialmente
         Assertions.assertNotEquals("2782", usuarioActualizado.getTelefono());

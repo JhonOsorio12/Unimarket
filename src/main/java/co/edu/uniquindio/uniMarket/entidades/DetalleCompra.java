@@ -30,6 +30,7 @@ public class DetalleCompra implements Serializable {
 
     @ManyToOne
     private Producto productoDT;
+
     @ManyToOne
     private Compra compraDT;
 

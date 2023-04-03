@@ -1,15 +1,21 @@
 package co.edu.uniquindio.uniMarket.DTO;
 
 import co.edu.uniquindio.uniMarket.entidades.MetodoPago;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class CompraGetDTO {
 
     private Integer codigoCompra;
 
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     private float valorTotal;
 

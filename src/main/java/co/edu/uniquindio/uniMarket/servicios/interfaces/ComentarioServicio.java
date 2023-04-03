@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ComentarioServicio {
 
-    ComentarioGetDTO crearComentario(ComentarioDTO comentarioDTO);
+    int crearComentario(ComentarioDTO comentarioDTO) throws Exception;
 
     List<ComentarioGetDTO> listarComentarios(Integer codigoProducto);
 

@@ -26,7 +26,8 @@ public class Producto implements Serializable {
     private String nombre;
 
     //para dejar el atributo no null y con un tamaño de caracteres
-    @Column(nullable = false , length = 1000)
+    @Lob
+    @Column(nullable = false)
     private String descripcion;
 
      @Column(nullable = false)
@@ -37,7 +38,7 @@ public class Producto implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Activo activo;
+    private Activo estado;
 
     @Column(nullable = false)
     private LocalDateTime fechaCreado;

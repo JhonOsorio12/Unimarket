@@ -8,7 +8,6 @@ import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     @Override
     public UsuarioGetDTO actualizarUsuario(Integer codigoUsuario, UsuarioDTO usuarioDTO) throws Exception {
 
-        Usuario buscado = usuarioRepo.buscarUsuario(usuarioDTO.getEmail());
+        Usuario buscado = usuarioRepo.buscarUsuario(usuarioDTO.getEmail(), codigoUsuario);
 
         if (buscado!=null){
             throw new Exception("El correo "+usuarioDTO.getEmail()+" ya está en uso");

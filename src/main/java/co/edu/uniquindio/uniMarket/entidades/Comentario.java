@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,7 +26,7 @@ public class Comentario implements Serializable {
 
     //Fecha not null y se autocrea en el momento de crear el comentario
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     @ManyToOne
     private Usuario usuarioCOM;
