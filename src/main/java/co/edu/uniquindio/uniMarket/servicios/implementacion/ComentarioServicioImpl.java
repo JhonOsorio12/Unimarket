@@ -28,10 +28,11 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     public int crearComentario(ComentarioDTO comentarioDTO) throws Exception {
 
         Comentario comentario = new Comentario();
+        comentario.setFechaCreacion(LocalDateTime.now());
         comentario.setMensaje(comentarioDTO.getMensaje());
         comentario.setProductoCOM(productoServicio.obtener(comentarioDTO.getCodigoProducto()));
         comentario.setUsuarioCOM(usuarioServicio.obtener(comentarioDTO.getCodigoUsuario()));
-        comentario.setFechaCreacion(LocalDateTime.now());
+
 
         return comentarioRepo.save(comentario).getCodigo();
     }

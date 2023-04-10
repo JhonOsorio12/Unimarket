@@ -22,7 +22,13 @@ public class ProductoGetDTO {
     private Integer codigo;
 
     @NotNull
-    private Activo estado;
+    private Activo activo;
+
+    @NotNull
+    private String descripcion;
+
+    @NotNull
+    private LocalDateTime fechaCreado;
 
     @NotNull
     private LocalDateTime fechaLimite;
@@ -31,20 +37,17 @@ public class ProductoGetDTO {
     private String nombre;
 
     @NotNull
-    private String descripcion;
-
-    @NotNull
-    private Integer unidades;
-
-    @NotNull
     private float precio;
 
     @NotNull
-    private Integer codigoVendedor;
+    private Integer unidades;
 
     @NotNull
     private Map<String, String> imagenes;
 
     @NotNull
     private List<Categoria> categorias;
+
+    @NotNull
+    private Integer codigoVendedor;
 }

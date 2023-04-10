@@ -13,7 +13,7 @@ public interface ProductoServicio {
 
     int crearProducto(ProductoDTO productoDTO) throws Exception;
 
-    int eliminarProducto(Integer codigoProducto) throws Exception;
+    int eliminarProducto(int codigoProducto) throws Exception;
 
     ProductoGetDTO actualizarProducto(Integer codigoProducto, ProductoDTO productoDTO) throws Exception;
 
@@ -21,9 +21,9 @@ public interface ProductoServicio {
 
     int actualizarPorCantidad(Integer codigoProducto, Integer unidades) throws Exception;
 
-    ProductoGetDTO obtenerProducto(Integer codigoProducto) throws Exception;
+    ProductoGetDTO obtenerProducto(int codigoProducto) throws Exception;
 
-    Producto obtener(Integer codigoProducto)throws Exception;
+    Producto obtener(int codigoProducto)throws Exception;
 
     List<ProductoGetDTO>listarProductosCategoria(Categoria categoria);
 

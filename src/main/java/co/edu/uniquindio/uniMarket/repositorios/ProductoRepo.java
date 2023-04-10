@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductoRepo extends JpaRepository<Producto, Integer> {
@@ -26,10 +27,12 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
     List<Producto> listarProductosEstado(Estado estado);
 
 
-    @Query("select p from Producto p where p.nombre like concat( '%', :nombre,  '%' ) and p.estado = :activo" )
+    @Query("select p from Producto p where p.nombre like concat( '%', :nombre,  '%' ) and p.activo = :activo" )
     List<Producto> listarProductosNombre(String nombre, Activo activo);
 
     @Query("select p from Producto p where p.precio > :precioMin and p.precio < :precioMax")
     List<Producto> listarProductosPrecio(float precioMin, float precioMax, Sort sort);
+
+    Optional<Producto> findById(int codigoProducto);
 
 }

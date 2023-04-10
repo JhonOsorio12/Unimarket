@@ -21,33 +21,35 @@ public class Producto implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    //para dejar el atributo no null y con un tamaño de caracteres
-    @Column(nullable = false, length = 100)
-    private String nombre;
-
-    //para dejar el atributo no null y con un tamaño de caracteres
     @Lob
     @Column(nullable = false)
     private String descripcion;
 
-     @Column(nullable = false)
-    private Integer unidades ;
-
-    @Column(nullable = false)
-    private float precio;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Activo estado;
+    private Activo activo;
 
     @Column(nullable = false)
     private LocalDateTime fechaCreado;
 
     @Column(nullable = false)
     private LocalDateTime fechaLimite;
+
+    //para dejar el atributo no null y con un tamaño de caracteres
+    @Column(nullable = false, length = 100)
+    private String nombre;
+
+    //para dejar el atributo no null y con un tamaño de caracteres
+    @Column(nullable = false)
+    private float precio;
+
+     @Column(nullable = false)
+    private Integer unidades ;
+
     @ElementCollection
     @Column(nullable = false)
     private Map<String, String> imagen;
+
     @ElementCollection
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

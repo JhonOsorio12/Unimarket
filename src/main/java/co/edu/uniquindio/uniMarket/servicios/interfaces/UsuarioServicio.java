@@ -9,7 +9,7 @@ public interface UsuarioServicio {
 
     int registrarUsuario(UsuarioDTO usuarioDTO) throws Exception;
 
-    UsuarioGetDTO actualizarUsuario(Integer codigoUsuario, UsuarioDTO usuarioDTO) throws Exception;
+    UsuarioGetDTO actualizarUsuario(int codigoUsuario, UsuarioDTO usuario) throws Exception;
 
     int eliminarUsuario(Integer codigoUsuario) throws Exception;
 

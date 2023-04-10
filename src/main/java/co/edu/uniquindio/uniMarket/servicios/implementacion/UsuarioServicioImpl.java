@@ -2,21 +2,30 @@ package co.edu.uniquindio.uniMarket.servicios.implementacion;
 
 
 import co.edu.uniquindio.uniMarket.DTO.CuentaPremiumDTO;
+import co.edu.uniquindio.uniMarket.DTO.EmailDTO;
 import co.edu.uniquindio.uniMarket.DTO.UsuarioDTO;
 import co.edu.uniquindio.uniMarket.DTO.UsuarioGetDTO;
 import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
+import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class UsuarioServicioImpl implements UsuarioServicio {
 
     private final UsuarioRepo usuarioRepo;
+
+    private EmailServicio emailServicio;
+
+
+    public UsuarioServicioImpl(UsuarioRepo usuarioRepo){
+        this.usuarioRepo=usuarioRepo;
+    }
 
     @Override
     public int registrarUsuario(UsuarioDTO usuarioDTO) throws Exception {
@@ -28,11 +37,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         }
 
         Usuario usuario = convertir(usuarioDTO);
+
+        emailServicio.enviarEmail(new EmailDTO("Registro de cuenta a Unimarket", "Bienvenido a Unimarket "+usuarioDTO.getNombre(), "Correo destino"+usuarioDTO.getEmail()));
+
         return usuarioRepo.save( usuario ).getCodigo();
     }
 
     @Override
-    public UsuarioGetDTO actualizarUsuario(Integer codigoUsuario, UsuarioDTO usuarioDTO) throws Exception {
+    public UsuarioGetDTO actualizarUsuario(int codigoUsuario,UsuarioDTO usuarioDTO) throws Exception {
 
         Usuario buscado = usuarioRepo.buscarUsuario(usuarioDTO.getEmail(), codigoUsuario);
 
@@ -78,6 +90,13 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         return usuario.get();
     }
 
+    /*
+    public boolean estaDisponible(String email){
+        Optional<Usuario> usuario = usuarioRepo.findByEmail(email);
+        return usuario.isEmpty();
+    }
+
+    */
 
     private UsuarioGetDTO convertir(Usuario usuario){
 
@@ -111,6 +130,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
         return usuario;
     }
+
+
 
     @Override
     public int marcarFavorito(Integer codigoUsuario, Integer codigoProducto) {

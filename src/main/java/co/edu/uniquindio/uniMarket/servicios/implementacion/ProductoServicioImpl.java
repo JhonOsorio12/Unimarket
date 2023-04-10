@@ -38,7 +38,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setVendedor(usuarioServicio.obtener(productoDTO.getCodigoVendedor()));
         producto.setImagen(productoDTO.getImagenes());
         producto.setCategoria(productoDTO.getCategorias());
-        producto.setEstado(Activo.INACTIVO);
+        producto.setActivo(Activo.INACTIVO);
         producto.setFechaCreado(LocalDateTime.now());
         producto.setFechaLimite(LocalDateTime.now().plusDays(60));
 
@@ -47,7 +47,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public int eliminarProducto(Integer codigoProducto) throws Exception {
+    public int eliminarProducto(int codigoProducto) throws Exception {
 
         obtenerProducto(codigoProducto);
         productoRepo.deleteById(codigoProducto);
@@ -81,10 +81,10 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public int actualizarPorEstado(Integer codigoProducto, Activo estado) throws Exception {
+    public int actualizarPorEstado(Integer codigoProducto, Activo activo) throws Exception {
         validarExiste(codigoProducto);
         Producto producto = obtener(codigoProducto);
-        producto.setEstado(estado);
+        producto.setActivo(activo);
         productoRepo.save(producto);
         return codigoProducto;
     }
@@ -100,7 +100,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public ProductoGetDTO obtenerProducto(Integer codigoProducto) throws Exception {
+    public ProductoGetDTO obtenerProducto(int codigoProducto) throws Exception {
 
         Optional<Producto> producto = productoRepo.findById(codigoProducto);
 
@@ -111,7 +111,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         return convertir(obtener(codigoProducto));
     }
 
-    public Producto obtener(Integer codigoProducto) throws Exception {
+    public Producto obtener(int codigoProducto) throws Exception {
 
         Optional<Producto> producto = productoRepo.findById(codigoProducto);
 
@@ -153,15 +153,16 @@ public class ProductoServicioImpl implements ProductoServicio {
 
         ProductoGetDTO productoDTO = new ProductoGetDTO(
                 producto.getCodigo(),
-                producto.getEstado(),
+                producto.getActivo(),
+                producto.getDescripcion(),
+                producto.getFechaCreado(),
                 producto.getFechaLimite(),
                 producto.getNombre(),
-                producto.getDescripcion(),
-                producto.getUnidades(),
                 producto.getPrecio(),
-                producto.getVendedor().getCodigo(),
+                producto.getUnidades(),
                 producto.getImagen(),
-                producto.getCategoria()
+                producto.getCategoria(),
+                producto.getVendedor().getCodigo()
         );
 
         return productoDTO;

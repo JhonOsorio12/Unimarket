@@ -21,7 +21,7 @@ public class Compra implements Serializable {
     private Integer codigo;
 
     //Fecha not null y que se autocrea
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false)
     private LocalDateTime fechaCreacion;
 
     @Positive

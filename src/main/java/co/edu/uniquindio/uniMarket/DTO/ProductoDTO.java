@@ -15,22 +15,21 @@ import java.util.Map;
 public class ProductoDTO {
 
     @NotNull
-    private String nombre;
-
-    @NotNull
     private String descripcion;
-
     @NotNull
-    private Integer unidades;
+    private String nombre;
 
     private float precio;
 
     @NotNull
-    private Integer codigoVendedor;
+    private Integer unidades;
 
     @NotNull
     private Map<String, String> imagenes;
 
     private List<Categoria> categorias;
+
+    @NotNull
+    private Integer codigoVendedor;
 
 }
