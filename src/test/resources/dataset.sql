@@ -42,23 +42,23 @@ insert into favorito values (4, 3);
 insert into favorito values (5, 4);
 insert into favorito values (3, 1);
 
-insert into comentario values (1, LOCALTIME, "Me gusta mucho este televisor", 2, 5);
-insert into comentario values (2, LOCALTIME, "Tiene envíos a la ciudad de Armenia", 4, 1);
-insert into comentario values (3, LOCALTIME, "Me gusta más o menos este televisor", 3, 4);
-insert into comentario values (4, LOCALTIME, "Me gusta poco este televisor", 1, 3);
-insert into comentario values (5, LOCALTIME, "No me gusta mucho este televisor", 5, 2);
+insert into comentario values (1, '2023-06-08', "Me gusta mucho este televisor", 2, 5);
+insert into comentario values (2, '2023-06-08', "Tiene envíos a la ciudad de Armenia", 4, 1);
+insert into comentario values (3, '2023-06-08', "Me gusta más o menos este televisor", 3, 4);
+insert into comentario values (4, '2023-06-08', "Me gusta poco este televisor", 1, 3);
+insert into comentario values (5, '2023-06-08', "No me gusta mucho este televisor", 5, 2);
 
-insert into producto_moderador values (1, "Aprovado", LOCALTIME, "Cumple con con todo", 1, 3);
-insert into producto_moderador values (2, "Rechazado", LOCALTIME, "No cumple con con todo", 2, 5);
-insert into producto_moderador values (3, "Rechazado", LOCALTIME, "No cumple con con todo", 4, 2);
-insert into producto_moderador values (4, "Aprovado", LOCALTIME, "Cumple con con todo", 5, 4);
-insert into producto_moderador values (5, "Aprovado", LOCALTIME, "Cumple con con todo", 3, 1);
+insert into producto_moderador values (1, "APROBADO", '2023-06-08', "Cumple con con todo", 1, 3);
+insert into producto_moderador values (2, "RECHAZADO", '2023-06-08', "No cumple con con todo", 2, 5);
+insert into producto_moderador values (3, "RECHAZADO", '2023-06-08', "No cumple con con todo", 4, 2);
+insert into producto_moderador values (4, "APROBADO", '2023-06-08', "Cumple con con todo", 5, 4);
+insert into producto_moderador values (5, "APROBADO", '2023-06-08', "Cumple con con todo", 3, 1);
 
-insert into compra values (1, LOCALTIME, "tarjeta de credito", 900000, 2);
-insert into compra values (2, LOCALTIME, "contra entrega", 3000000, 4);
-insert into compra values (3, LOCALTIME, "tarjeta de credito", 6000000, 1);
-insert into compra values (4, LOCALTIME, "contra entrega", 1500000, 3);
-insert into compra values (5, LOCALTIME, "tarjeta de credito", 500000, 5);
+insert into compra values (1, '2023-06-08', "tarjeta de credito", 900000, 2);
+insert into compra values (2, '2023-06-08', "contra entrega", 3000000, 4);
+insert into compra values (3, '2023-06-08', "tarjeta de credito", 6000000, 1);
+insert into compra values (4, '2023-06-08', "contra entrega", 1500000, 3);
+insert into compra values (5, '2023-06-08', "tarjeta de credito", 500000, 5);
 
 /* idDT - precioProducto - unidades - compra_id - producto_id */
 insert into detalle_compra values (1, 450000, 2, 1, 5);
@@ -73,11 +73,11 @@ insert into cuenta_premium values (3, "platino", 4);
 insert into cuenta_premium values (4, "sin cuenta", 3);
 insert into cuenta_premium values (5, "sin cuenta", 5);
 
-insert into centro_ayuda values (1, LOCALTIME, "El producto aún no llega, qué pasa??", 1, 2);
-insert into centro_ayuda values (2, LOCALTIME, "El producto salió en mal estado", 3, 1);
-insert into centro_ayuda values (3, LOCALTIME, "No llegó el producto que compré", 4, 5);
-insert into centro_ayuda values (4, LOCALTIME, "El producto aún no llega, qué pasa??", 2, 4);
-insert into centro_ayuda values (5, LOCALTIME, "El producto salió en mal estado", 1, 3);
+insert into centro_ayuda values (1, '2023-06-08', "El producto aún no llega, qué pasa??", 1, 2);
+insert into centro_ayuda values (2, '2023-06-08', "El producto salió en mal estado", 3, 1);
+insert into centro_ayuda values (3, '2023-06-08', "No llegó el producto que compré", 4, 5);
+insert into centro_ayuda values (4, '2023-06-08', "El producto aún no llega, qué pasa??", 2, 4);
+insert into centro_ayuda values (5, '2023-06-08', "El producto salió en mal estado", 1, 3);
 
 
 

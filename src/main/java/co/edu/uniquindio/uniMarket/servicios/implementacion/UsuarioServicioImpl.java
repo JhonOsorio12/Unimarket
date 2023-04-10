@@ -11,6 +11,7 @@ import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException
 import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     private final UsuarioRepo usuarioRepo;
 
     private EmailServicio emailServicio;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public UsuarioServicioImpl(UsuarioRepo usuarioRepo){
@@ -37,6 +41,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         }
 
         Usuario usuario = convertir(usuarioDTO);
+
+        usuario.setPassword( passwordEncoder.encode(usuario.getPassword()));
+
 
         emailServicio.enviarEmail(new EmailDTO("Registro de cuenta a Unimarket", "Bienvenido a Unimarket "+usuarioDTO.getNombre(), "Correo destino"+usuarioDTO.getEmail()));
 
