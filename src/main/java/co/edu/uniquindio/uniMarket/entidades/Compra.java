@@ -32,7 +32,6 @@ public class Compra implements Serializable {
     @Column(nullable = false )
     private MetodoPago medioPago;
 
-
     @OneToMany(mappedBy = "compraDT")
     @ToString.Exclude
     private List<DetalleCompra> detalleCompra;

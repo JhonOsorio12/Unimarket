@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -15,8 +16,8 @@ public class DetalleCompraDTO {
 
     private Integer unidades;
 
-    private float valor;
+    private float precio;
 
-    private Integer codigoCompra;
+    //List<Integer> listaProdcutos;
 
 }

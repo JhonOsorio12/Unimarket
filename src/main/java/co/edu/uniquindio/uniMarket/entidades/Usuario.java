@@ -23,7 +23,6 @@ public class Usuario  extends Persona implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "favorito")
-
     private List<Producto> favoritos;
 
     @OneToMany(mappedBy = "vendedor")

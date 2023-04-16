@@ -5,7 +5,7 @@ import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.ModeradorRepo;
 import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
 import co.edu.uniquindio.uniMarket.security.modelo.UserDetailsImpl;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,12 +16,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UsuarioRepo usuarioRepo;
+    @Autowired
+    private  UsuarioRepo usuarioRepo;
 
-    private final ModeradorRepo adminRepo;
+    @Autowired
+    private ModeradorRepo adminRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

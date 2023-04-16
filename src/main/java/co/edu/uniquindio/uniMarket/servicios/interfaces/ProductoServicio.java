@@ -17,7 +17,7 @@ public interface ProductoServicio {
 
     ProductoGetDTO actualizarProducto(Integer codigoProducto, ProductoDTO productoDTO) throws Exception;
 
-    int actualizarPorEstado(Integer codigoProducto, Activo estado) throws Exception;
+    int actualizarPorEstado(Producto producto, Activo activo) throws Exception;
 
     int actualizarPorCantidad(Integer codigoProducto, Integer unidades) throws Exception;
 
@@ -33,9 +33,17 @@ public interface ProductoServicio {
 
     List<ProductoGetDTO>listarProductosNombre(String nombre);
 
-    List<ProductoGetDTO>listarProductosPrecio(float precioMin, float precioMax);
+    List<ProductoGetDTO>listarProductosPrecio(String nombre, float precioMin, float precioMax);
 
-    List<ProductoGetDTO> listarFavoritosUsuario(Integer codigoUsuario);
+    List<ProductoGetDTO> listarProductosFavoritos(Integer codigoUsuario) throws Exception;
 
+    void crearFavorito(int codigoUsuario, int codigoProducto) throws Exception;
 
+    void eliminarFavorito(int codigoUsuario, int codigoProducto) throws Exception;
+
+    List<ProductoGetDTO> listarProductos() throws Exception;
+
+    List<ProductoGetDTO> listarFavoritosUsuario(Integer codigoUsuario) throws Exception;
+
+    int actualizarUnidades(Producto producto, int unidades) throws Exception;
 }

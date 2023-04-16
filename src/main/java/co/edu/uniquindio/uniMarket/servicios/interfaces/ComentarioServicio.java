@@ -9,6 +9,6 @@ public interface ComentarioServicio {
 
     int crearComentario(ComentarioDTO comentarioDTO) throws Exception;
 
-    List<ComentarioGetDTO> listarComentarios(Integer codigoProducto);
+    List<ComentarioGetDTO> listarComentarios(Integer codigoProducto) throws Exception;
 
 }

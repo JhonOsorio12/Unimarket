@@ -2,9 +2,12 @@ package co.edu.uniquindio.uniMarket.servicios.implementacion;
 
 import co.edu.uniquindio.uniMarket.DTO.ComentarioDTO;
 import co.edu.uniquindio.uniMarket.DTO.ComentarioGetDTO;
+import co.edu.uniquindio.uniMarket.DTO.EmailDTO;
 import co.edu.uniquindio.uniMarket.entidades.Comentario;
 import co.edu.uniquindio.uniMarket.repositorios.ComentarioRepo;
+import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ComentarioServicio;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ProductoServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import lombok.AllArgsConstructor;
@@ -24,30 +27,44 @@ public class ComentarioServicioImpl implements ComentarioServicio {
 
     private UsuarioServicio usuarioServicio;
 
+    private EmailServicio emailServicio;
+
     @Override
     public int crearComentario(ComentarioDTO comentarioDTO) throws Exception {
 
-        Comentario comentario = new Comentario();
-        comentario.setFechaCreacion(LocalDateTime.now());
-        comentario.setMensaje(comentarioDTO.getMensaje());
-        comentario.setProductoCOM(productoServicio.obtener(comentarioDTO.getCodigoProducto()));
-        comentario.setUsuarioCOM(usuarioServicio.obtener(comentarioDTO.getCodigoUsuario()));
+        try {
+            Comentario comentario = new Comentario();
+            comentario.setFechaCreacion(LocalDateTime.now());
+            comentario.setMensaje(comentarioDTO.getMensaje());
+            comentario.setProductoCOM(productoServicio.obtener(comentarioDTO.getCodigoProducto()));
+            comentario.setUsuarioCOM(usuarioServicio.obtener(comentarioDTO.getCodigoUsuario()));
 
+            emailServicio.enviarEmail(new EmailDTO("Comentario", "Ha realizado un comentario: "
+                    + comentario.getCodigo() + comentario.getMensaje()
+                    + comentario.getUsuarioCOM().getNombre(), comentario.getUsuarioCOM().getEmail()));
 
-        return comentarioRepo.save(comentario).getCodigo();
+            return comentarioRepo.save(comentario).getCodigo();
+        }catch (Exception e){
+            throw new ResourceNotFoundException("No se pudo realizar el comentario");
+        }
+
     }
 
     @Override
-    public List<ComentarioGetDTO> listarComentarios(Integer codigoProducto) {
+    public List<ComentarioGetDTO> listarComentarios(Integer codigoProducto) throws Exception {
 
-        List<Comentario> lista = comentarioRepo.listarComentarios(codigoProducto);
-        List<ComentarioGetDTO> respuesta = new ArrayList<>();
+        try {
+            List<Comentario> lista = comentarioRepo.listarComentarios(codigoProducto);
+            List<ComentarioGetDTO> respuesta = new ArrayList<>();
 
-        for (Comentario c : lista){
-            respuesta.add(convertir(c));
+            for (Comentario c : lista) {
+                respuesta.add(convertir(c));
+            }
+
+            return respuesta;
+        }catch (Exception e){
+            throw new ResourceNotFoundException("No se pudo listar los comentarios");
         }
-
-        return respuesta;
     }
 
     private ComentarioGetDTO convertir(Comentario comentario){

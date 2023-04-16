@@ -34,6 +34,4 @@ public class DetalleCompra implements Serializable {
     @ManyToOne
     private Compra compraDT;
 
-
-
 }

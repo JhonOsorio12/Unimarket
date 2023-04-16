@@ -1,20 +1,22 @@
 package co.edu.uniquindio.uniMarket.servicios.implementacion;
 
-import co.edu.uniquindio.uniMarket.DTO.CompraDTO;
-import co.edu.uniquindio.uniMarket.DTO.CompraGetDTO;
-import co.edu.uniquindio.uniMarket.DTO.DetalleCompraDTO;
-import co.edu.uniquindio.uniMarket.DTO.DetalleCompraGetDTO;
+import co.edu.uniquindio.uniMarket.DTO.*;
 import co.edu.uniquindio.uniMarket.entidades.Compra;
 import co.edu.uniquindio.uniMarket.entidades.DetalleCompra;
+import co.edu.uniquindio.uniMarket.entidades.Producto;
+import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.CompraRepo;
 import co.edu.uniquindio.uniMarket.repositorios.DetalleCompraRepo;
+import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
+import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.CompraServicio;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ProductoServicio;
-import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,24 +29,126 @@ public class CompraServicioImpl implements CompraServicio {
 
     private final DetalleCompraRepo detalleCompraRepo;
 
-    private UsuarioServicio usuarioServicio;
-
     private ProductoServicio productoServicio;
 
-    @Override
-    public int crearCompra(CompraDTO compraDTO) throws Exception{
+    private EmailServicio emailServicio;
 
-       Compra compra = new Compra();
-        compra.setMedioPago(compraDTO.getMetodoPago());
-        compra.setUsuario(usuarioServicio.obtener(compraDTO.getCodigoUsuario()));
-        compra.setFechaCreacion(LocalDateTime.now());
+    private final UsuarioRepo usuarioRepo;
+
+    @Override
+    public int crearCompra2(CompraDTO compraDTO) throws Exception {
+
+        Compra compra;
+        Usuario usuario;
+
+        try {
+            usuario = usuarioRepo.buscarCorreoUsuario(compraDTO.getCodigoUsuario());
+            List<DetalleCompraDTO> detalles = compraDTO.getDetalleCompraDTO();
+
+            compra = new Compra();
+            compra.setUsuario(usuario);
+            compra.setMedioPago(compraDTO.getMetodoPago());
+            compra.setFechaCreacion(LocalDateTime.now(ZoneId.of("America/Bogota")));
+
+            float valorTotal = calcularValorTotal(detalles);
+            compra.setValorTotal(valorTotal);
+
+            Compra compraGuardada = compraRepo.save(compra);
+
+            for (DetalleCompraDTO detalleCompraDTO : compraDTO.getDetalleCompraDTO()) {
+
+                if (detalleCompraDTO.getCodigoProducto() != usuario.getCodigo()) {
+
+                    DetalleCompra detalleCompra = new DetalleCompra();
+                    detalleCompra.setCompraDT(compraGuardada);
+                    detalleCompra.setPrecioProducto(detalleCompraDTO.getPrecio());
+                    detalleCompra.setUnidades(detalleCompraDTO.getUnidades());
+
+                    detalleCompraRepo.save(detalleCompra);
+                }else {
+                    throw new ResourceNotFoundException("No puede comprar su propio producto");
+                }
+            }
+
+            emailServicio.enviarEmail(new EmailDTO("Compra", "Su compra se realizó con éxito, los datos de la compra fueron: "
+                    +compra.getCodigo()+" "+ compra.getValorTotal()+" "+compra.getFechaCreacion()+" "+compra.getMedioPago()+" "
+                    + compra.getUsuario().getNombre() ,compra.getUsuario().getEmail()));
+
+            emailServicio.enviarEmail(new EmailDTO("Compra", "Su venta se realizó con éxito, los datos de la venta fueron: "
+                    +compra.getCodigo()+ compra.getValorTotal()+compra.getFechaCreacion()+compra.getMedioPago(),
+                     usuario.getEmail()));
+
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("No se pudo realizar la compra");
+        }
 
         return compraRepo.save(compra).getCodigo();
+    }
+
+    /*
+    @Override
+    public Compra crearCompra(CompraDTO compraDTO, Usuario usuario, Producto producto, ArrayList<DetalleCompra> detalleCompra) throws Exception {
+
+        Compra compra;
+        if (producto.getVendedor().getCodigo().equals(usuario.getCodigo())) {
+            throw new ResourceNotFoundException("Usted es el vendedor no puede comprar sus propios productos");
+        } else {
+            compra = new Compra();
+
+            Optional<Usuario> usuarioExistente = usuarioRepo.findById(usuario.getCodigo());
+
+            if (usuarioExistente.isEmpty()) {
+                throw new ResourceNotFoundException("El usuario no existe");
+            }
+
+            Optional<Producto> productoExiste = productoRepo.findById(producto.getCodigo());
+
+            compra.setFechaCreacion(LocalDateTime.now(ZoneId.of("America/Bogota")));
+            compra.setUsuario(usuarioServicio.obtener(compraDTO.getCodigoUsuario()));
+            compra.setMedioPago(compraDTO.getMetodoPago());
+
+            float valorTotal = calcularValorTotal(detalleCompra);
+            compra.setValorTotal(valorTotal);
+
+            compraRepo.save(compra);
+
+            for (DetalleCompra dt : detalleCompra) {
+
+                List<Producto> productoLista = productoRepo.listarProductosUsuario(usuario.getCodigo());
+
+                if (productoExiste.isEmpty()) {
+                    throw new ResourceNotFoundException("El producto no existe");
+                } else {
+                    for (Producto p : productoLista) {
+                        dt.setProductoDT(p);
+                    }
+                }
+
+                dt = new DetalleCompra();
+                dt.setCompraDT(compra);
+                dt.setPrecioProducto(dt.getPrecioProducto());
+                dt.setUnidades(dt.getUnidades());
+
+                detalleCompraRepo.save(dt);
+            }
+
+            emailServicio.enviarEmail(new EmailDTO("Compra", "Su compra se realizó con éxito, los datos de la compra fueron: "
+                    +compra.getCodigo()+ compra.getValorTotal()+compra.getFechaCreacion()+compra.getMedioPago()
+                    + usuario.getNombre(), usuario.getEmail()));
+
+            emailServicio.enviarEmail(new EmailDTO("Compra", "Su venta se realizó con éxito, los datos de la venta fueron: "
+                    +compra.getCodigo()+ compra.getValorTotal()+compra.getFechaCreacion()+compra.getMedioPago()
+                    + producto.getVendedor().getNombre(), producto.getVendedor().getEmail()));
+        }
+
+        return compra;
 
     }
 
+     */
+
     @Override
-    public List<CompraGetDTO> listarComprasUsuario(Integer codigoUsuario) {
+    public List<CompraGetDTO> listarComprasUsuario(Integer codigoUsuario) throws Exception {
 
         List<Compra> lista = compraRepo.listarCompraUsuario(codigoUsuario);
         List<CompraGetDTO> respuesta = new ArrayList<>();
@@ -54,6 +158,18 @@ public class CompraServicioImpl implements CompraServicio {
         }
 
         return respuesta;
+    }
+
+    @Override
+    public CompraGetDTO obtenerCompra(int codigoCompra) throws Exception {
+
+        Optional<Compra> compra = compraRepo.findById(codigoCompra);
+
+        if (compra.isEmpty()){
+            throw new Exception("El código "+codigoCompra+" no está asociado a ningún producto");
+        }
+
+        return convertir(obtener(codigoCompra));
     }
 
     @Override
@@ -67,6 +183,8 @@ public class CompraServicioImpl implements CompraServicio {
 
         return compra.get();
     }
+
+
 
     private CompraGetDTO convertir(Compra compra, DetalleCompraDTO detalleCompraDTO){
 
@@ -99,6 +217,7 @@ public class CompraServicioImpl implements CompraServicio {
         return new ArrayList<>();
     }
 
+    /*
     private Compra convertir(CompraDTO compraDTO){
 
         Compra compra = new Compra();
@@ -106,42 +225,27 @@ public class CompraServicioImpl implements CompraServicio {
         compra.setFechaCreacion(LocalDateTime.now());
         //compra.setDetalleCompra();
         return compra;
-    }
+    }*/
 
-    public Float calcularValorTotal(List<DetalleCompra> detalleCompra, List<Compra> compraT){
+    public Float calcularValorTotal(List<DetalleCompraDTO> detalleCompraDTO){
 
-        Float valorTotal = 0.f;
+        float valorTotal = 0.f;
 
-        for (DetalleCompra detalleCompra1 : detalleCompra){
-            valorTotal = valorTotal + detalleCompra1.getPrecioProducto() * detalleCompra1.getUnidades();
-        }
-        for (Compra compra1 : compraT){
-            valorTotal = valorTotal + compra1.getValorTotal();
+        for (DetalleCompraDTO detalleCompra1 : detalleCompraDTO){
+            valorTotal = valorTotal + detalleCompra1.getPrecio() * detalleCompra1.getUnidades();
         }
         return valorTotal;
     }
 
-    public int crearDetalleCompra(DetalleCompraDTO detalleCompraDTO, Compra compra) throws Exception {
+    public int crearDetalleCompra(DetalleCompra detalleCompra, Compra compra) throws Exception {
 
-        DetalleCompra detalleCompra = new DetalleCompra();
-        detalleCompra.setUnidades(detalleCompraDTO.getUnidades());
-        detalleCompra.setPrecioProducto(detalleCompraDTO.getValor());
-        detalleCompra.setProductoDT(productoServicio.obtener(detalleCompraDTO.getCodigoProducto()));
-        detalleCompra.setCompraDT(compra);
+        DetalleCompra dc = new DetalleCompra();
+        dc.setUnidades(detalleCompra.getUnidades());
+        dc.setPrecioProducto(detalleCompra.getPrecioProducto());
+        dc.setProductoDT(productoServicio.obtener(detalleCompra.getProductoDT().getCodigo()));
+        dc.setCompraDT(compra);
 
         return detalleCompraRepo.save(detalleCompra).getCodigo();
-    }
-
-    public List<DetalleCompraGetDTO> listarDetalleCompra(Integer codigoCompra) {
-
-        List<DetalleCompra> lista = detalleCompraRepo.listarDetalleCompra(codigoCompra);
-        List<DetalleCompraGetDTO> respuesta = new ArrayList<>();
-
-        for (DetalleCompra dt : lista){
-            //respuesta.add(convertir());
-        }
-
-        return respuesta;
     }
 
     public DetalleCompra obtenerDetalleCompra(Integer codigo) throws Exception {
@@ -150,7 +254,6 @@ public class CompraServicioImpl implements CompraServicio {
         if (detalleCompra.isEmpty()){
             throw new Exception("El código "+codigo+" no está asociado a ningún producto");
         }
-
         return detalleCompra.get();
     }
 

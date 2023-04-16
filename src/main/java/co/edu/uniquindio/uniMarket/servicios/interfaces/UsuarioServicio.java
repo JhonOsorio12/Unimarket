@@ -17,9 +17,11 @@ public interface UsuarioServicio {
 
     Usuario obtener(Integer codigoUsuario) throws Exception;
 
-    int marcarFavorito(Integer codigoUsuario, Integer codigoProducto);
+    void validarExiste(int codigoUsuario) throws Exception;
 
-    int eliminarFavorito(Integer codigoUsuario, Integer codigoProducto);
+    //int marcarFavorito(Integer codigoUsuario, Integer codigoProducto);
+
+    //int eliminarFavorito(Integer codigoUsuario, Integer codigoProducto);
 
     int crearCuentaPremium(CuentaPremiumDTO cuentaPremiumDTO);
 

@@ -29,14 +29,12 @@ public class UsuarioTest {
     public void crearUsuarioTest() throws Exception {
 
         //Se crea el usuario con el servicio de crearUsuario
-        UsuarioDTO usuarioDTO = new UsuarioDTO("Pepito Perez", "pepe12@gmail.com", "1234", "calle 12", "4589");
+        UsuarioDTO usuarioDTO = new UsuarioDTO("pepe12@gmail.com", "Pepito Perez", "1234", "calle 12", "4589");
 
         int codigo = usuarioServicio.registrarUsuario(usuarioDTO);
 
         //Se espera que si se registra correctamente entonces el servicio no debe retornar 0
         Assertions.assertNotEquals(0, codigo);
-
-
 
     }
 

@@ -1,15 +1,17 @@
 package co.edu.uniquindio.uniMarket.servicios.implementacion;
 
+import co.edu.uniquindio.uniMarket.DTO.DetalleCompraGetDTO;
 import co.edu.uniquindio.uniMarket.DTO.ProductoDTO;
 import co.edu.uniquindio.uniMarket.DTO.ProductoGetDTO;
 import co.edu.uniquindio.uniMarket.entidades.*;
-import co.edu.uniquindio.uniMarket.repositorios.ProductoModeRepo;
 import co.edu.uniquindio.uniMarket.repositorios.ProductoRepo;
+import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.ModeradorServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ProductoServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import lombok.AllArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +25,13 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     private final ProductoRepo productoRepo;
 
+    private final UsuarioRepo usuarioRepo;
+
     private final UsuarioServicio usuarioServicio;
+
+    private final ModeradorServicio moderadorServicio;
+
+
 
     //private final ProductoModeRepo productoModeRepo;
 
@@ -41,6 +49,8 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setActivo(Activo.INACTIVO);
         producto.setFechaCreado(LocalDateTime.now());
         producto.setFechaLimite(LocalDateTime.now().plusDays(60));
+
+        //moderadorServicio.validarProducto(producto);
 
         return productoRepo.save(producto).getCodigo();
 
@@ -64,7 +74,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setNombre(productoDTO.getNombre());
         producto.setUnidades(productoDTO.getUnidades());
         producto.setPrecio(productoDTO.getPrecio());
-        producto.setVendedor(usuarioServicio.obtener(productoDTO.getCodigoVendedor()));
+        //producto.setVendedor(usuarioServicio.obtener(productoDTO.getCodigoVendedor()));
         producto.setImagen(productoDTO.getImagenes());
         producto.setCategoria(productoDTO.getCategorias());
 
@@ -81,12 +91,15 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public int actualizarPorEstado(Integer codigoProducto, Activo activo) throws Exception {
-        validarExiste(codigoProducto);
-        Producto producto = obtener(codigoProducto);
+    public int actualizarPorEstado(Producto producto, Activo activo) throws Exception {
+        validarExiste(producto.getCodigo());
         producto.setActivo(activo);
-        productoRepo.save(producto);
-        return codigoProducto;
+
+        if (activo == Activo.ACTIVO){
+            producto.setFechaLimite(LocalDateTime.now().plusDays(60));
+        }
+
+        return productoRepo.save(producto).getCodigo();
     }
 
     @Override
@@ -169,6 +182,17 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     }
 
+    private List<ProductoGetDTO> convertirProducto(List<Producto> productos){
+
+        List<ProductoGetDTO> respuesta = new ArrayList<>();
+
+        for (Producto p : productos){
+            respuesta.add(convertir(p));
+        }
+
+        return respuesta;
+    }
+
     /*
     private Producto convertir(ProductoDTO productoDTO) throws Exception{
 
@@ -185,6 +209,7 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     }
     */
+
     @Override
     public List<ProductoGetDTO> listarProductosEstado(Estado estado) {
 
@@ -212,9 +237,46 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public List<ProductoGetDTO> listarProductosPrecio(float precioMin, float precioMax) {
+    public List<ProductoGetDTO> listarProductosFavoritos(Integer codigoUsuario) throws Exception{
+        usuarioServicio.validarExiste(codigoUsuario);
+        //DUDA...
+        return convertirProducto(productoRepo.listarProductosFavoritos(codigoUsuario));
+    }
 
-        List<Producto> lista = productoRepo.listarProductosPrecio(precioMin, precioMax, Sort.by(Sort.Direction.DESC, "precio"));
+    @Override
+    public void crearFavorito(int codigoUsuario, int codigoProducto) throws Exception {
+        Usuario usuario = usuarioServicio.obtener(codigoUsuario);
+        Producto producto = obtener(codigoProducto);
+        usuario.getFavoritos().add(producto);
+        usuarioRepo.save(usuario);
+    }
+
+    @Override
+    public void eliminarFavorito(int codigoUsuario, int codigoProducto) throws Exception {
+        Usuario usuario = usuarioServicio.obtener(codigoUsuario);
+        Producto producto = obtener(codigoProducto);
+        usuario.getFavoritos().remove(producto);
+        usuarioRepo.save(usuario);
+
+    }
+
+    @Override
+    public List<ProductoGetDTO> listarProductos() throws Exception {
+
+        List<Producto> lista = productoRepo.listarProductos();
+        List<ProductoGetDTO> respuesta = new ArrayList<>();
+
+        for (Producto p : lista){
+            respuesta.add(convertir(p));
+        }
+
+        return respuesta;
+    }
+
+    @Override
+    public List<ProductoGetDTO> listarProductosPrecio(String nombre, float precioMin, float precioMax) {
+
+        List<Producto> lista = productoRepo.listarProductosPrecio(nombre ,precioMin, precioMax, Sort.by(Sort.Direction.DESC, "precio"));
 
         List<ProductoGetDTO> respuesta = new ArrayList<>();
 
@@ -228,5 +290,12 @@ public class ProductoServicioImpl implements ProductoServicio {
     @Override
     public List<ProductoGetDTO> listarFavoritosUsuario(Integer codigoUsuario) {
         return null;
+    }
+
+    @Override
+    public int actualizarUnidades(Producto producto, int unidades) throws Exception {
+        validarExiste(producto.getCodigo());
+        producto.setUnidades(unidades);
+        return productoRepo.save(producto).getCodigo();
     }
 }
