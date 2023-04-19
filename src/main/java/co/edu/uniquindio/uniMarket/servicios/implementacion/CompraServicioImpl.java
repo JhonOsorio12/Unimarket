@@ -12,6 +12,7 @@ import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException
 import co.edu.uniquindio.uniMarket.servicios.interfaces.CompraServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ProductoServicio;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class CompraServicioImpl implements CompraServicio {
 
     private EmailServicio emailServicio;
 
-    private final UsuarioRepo usuarioRepo;
+    private final UsuarioServicio usuarioServicio;
 
     @Override
     public int crearCompra2(CompraDTO compraDTO) throws Exception {
@@ -42,7 +43,7 @@ public class CompraServicioImpl implements CompraServicio {
         Usuario usuario;
 
         try {
-            usuario = usuarioRepo.buscarCorreoUsuario(compraDTO.getCodigoUsuario());
+            usuario = usuarioServicio.obtener(compraDTO.getCodigoUsuario());
             List<DetalleCompraDTO> detalles = compraDTO.getDetalleCompraDTO();
 
             compra = new Compra();
@@ -54,35 +55,43 @@ public class CompraServicioImpl implements CompraServicio {
             compra.setValorTotal(valorTotal);
 
             Compra compraGuardada = compraRepo.save(compra);
+            ArrayList<DetalleCompra> detallesGuardados = new ArrayList<>();
 
             for (DetalleCompraDTO detalleCompraDTO : compraDTO.getDetalleCompraDTO()) {
 
-                if (detalleCompraDTO.getCodigoProducto() != usuario.getCodigo()) {
+                Producto producto = productoServicio.obtener( detalleCompraDTO.getCodigoProducto() );
+
+                if (producto.getVendedor().getCodigo() != usuario.getCodigo()) {
 
                     DetalleCompra detalleCompra = new DetalleCompra();
                     detalleCompra.setCompraDT(compraGuardada);
                     detalleCompra.setPrecioProducto(detalleCompraDTO.getPrecio());
                     detalleCompra.setUnidades(detalleCompraDTO.getUnidades());
+                    detalleCompra.setProductoDT( producto );
 
-                    detalleCompraRepo.save(detalleCompra);
+                    detallesGuardados.add(detalleCompraRepo.save(detalleCompra));
+                    
                 }else {
                     throw new ResourceNotFoundException("No puede comprar su propio producto");
                 }
             }
 
-            emailServicio.enviarEmail(new EmailDTO("Compra", "Su compra se realizó con éxito, los datos de la compra fueron: "
-                    +compra.getCodigo()+" "+ compra.getValorTotal()+" "+compra.getFechaCreacion()+" "+compra.getMedioPago()+" "
-                    + compra.getUsuario().getNombre() ,compra.getUsuario().getEmail()));
+            for(DetalleCompra dc : detallesGuardados){
+                emailServicio.enviarEmail(new EmailDTO("Compra", "Su venta se realizó con éxito, los datos de la venta fueron: "
+                        +compraGuardada.getCodigo()+" "+ (dc.getPrecioProducto()*dc.getUnidades()) +" "+compraGuardada.getFechaCreacion()+" "+compraGuardada.getMedioPago()+" "
+                        + compraGuardada.getUsuario().getNombre() , dc.getProductoDT().getVendedor().getEmail()) );
+            }
 
-            emailServicio.enviarEmail(new EmailDTO("Compra", "Su venta se realizó con éxito, los datos de la venta fueron: "
-                    +compra.getCodigo()+ compra.getValorTotal()+compra.getFechaCreacion()+compra.getMedioPago(),
-                     usuario.getEmail()));
+            emailServicio.enviarEmail(new EmailDTO("Compra", "Su compra se realizó con éxito, los datos de la compra fueron: "
+                    +compraGuardada.getCodigo()+" "+ compraGuardada.getValorTotal()+" "+compraGuardada.getFechaCreacion()+" "+compraGuardada.getMedioPago()+" "
+                    + compraGuardada.getUsuario().getNombre() , compraGuardada.getUsuario().getEmail()));
+
+            return compraRepo.save(compra).getCodigo();
 
         } catch (Exception e) {
             throw new ResourceNotFoundException("No se pudo realizar la compra");
         }
 
-        return compraRepo.save(compra).getCodigo();
     }
 
     /*
@@ -169,7 +178,7 @@ public class CompraServicioImpl implements CompraServicio {
             throw new Exception("El código "+codigoCompra+" no está asociado a ningún producto");
         }
 
-        return convertir(obtener(codigoCompra));
+        return convertir(compra.get());
     }
 
     @Override

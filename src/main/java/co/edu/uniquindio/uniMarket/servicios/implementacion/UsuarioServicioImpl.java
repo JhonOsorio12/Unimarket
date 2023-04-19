@@ -82,6 +82,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     }
 
+    @Override
     public Usuario obtener(Integer codigoUsuario) throws Exception {
         Optional<Usuario> usuario = usuarioRepo.findById(codigoUsuario);
 
@@ -119,6 +120,22 @@ public class UsuarioServicioImpl implements UsuarioServicio {
             throw new ResourceNotFoundException("El código "+codigoUsuario+" no está asociado a ningún usuario");
         }
 
+    }
+
+    public void enviarLinkRecuperacion(String correo) throws Exception{
+        emailServicio.enviarEmail(new EmailDTO("Cambio de contraseña", "Para cambiar la contraseña ingrese a: [link]/"+correo, correo));
+    }
+
+    @Override
+    public void cambiarPassword(String email, String passwordNueva) throws Exception {
+        Usuario personaEncontrada = usuarioRepo.buscarUsuario(email);
+
+        if (personaEncontrada != null){
+            personaEncontrada.setPassword(passwordEncoder.encode(passwordNueva));
+            usuarioRepo.save(personaEncontrada);
+        } else {
+            throw new ResourceNotFoundException("No existe el usuario con el correo dado");
+        }
     }
 
     private Usuario convertir(UsuarioDTO usuarioDTO){

@@ -17,7 +17,7 @@ public class CloudinaryServicioImpl implements CloudinaryServicio {
     private Cloudinary cloudinary;
     private Map<String, String> config;
 
-    public void CloudinaryServicio(){
+    public CloudinaryServicioImpl(){
         config = new HashMap<>();
         config.put("cloud_name", "dfqd0ixdc");
         config.put("api_key", "259697465328163");

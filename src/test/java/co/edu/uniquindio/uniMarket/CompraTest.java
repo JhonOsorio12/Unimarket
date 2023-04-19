@@ -33,7 +33,6 @@ public class CompraTest {
         dt.add(new DetalleCompraDTO(1,2,200000));
         dt.add(new DetalleCompraDTO(3,3,100000));
 
-
         CompraDTO compraDTO = new CompraDTO(
                 2,
                 MetodoPago.EFECTIVO,
@@ -41,35 +40,24 @@ public class CompraTest {
 
         );
 
-        try {
-            int compra = compraServicio.crearCompra2(compraDTO);
-            Assertions.assertThrows( Exception.class, () -> compraServicio.obtenerCompra(1));
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        int compra = compraServicio.crearCompra2(compraDTO);
+        Assertions.assertEquals(compra, compraServicio.obtenerCompra(compra).getCodigoCompra());
+
     }
 
     @Test
     @Sql("classpath:dataset.sql")
     public void obtenerCompraTest() throws Exception{
-        try {
-            CompraGetDTO compraGetDTO = compraServicio.obtenerCompra(1);
-            Assertions.assertEquals(1, compraGetDTO.getMetodoPago());
-        }catch (Exception e){
-            throw new ResourceNotFoundException("Compra no encontrada");
-        }
+        CompraGetDTO compraGetDTO = compraServicio.obtenerCompra(1);
+        Assertions.assertEquals(MetodoPago.TARJETA_CREDITO, compraGetDTO.getMetodoPago());
     }
 
     @Test
     @Sql("classpath:dataset.sql")
     public void listarComprasUsuarioTest() throws Exception{
-        try {
-            List<CompraGetDTO> compraGetDTO = compraServicio.listarComprasUsuario(1);
-            compraGetDTO.forEach(System.out::println);
-            Assertions.assertEquals(1, compraGetDTO.size());
-        }catch (Exception e){
-            throw new ResourceNotFoundException("La cantidad no coincide");
-        }
+        List<CompraGetDTO> compraGetDTO = compraServicio.listarComprasUsuario(1);
+        compraGetDTO.forEach(System.out::println);
+        Assertions.assertEquals(1, compraGetDTO.size());
     }
 
 

@@ -54,11 +54,11 @@ insert into producto_moderador values (3, "RECHAZADO", '2023-06-08', "No cumple 
 insert into producto_moderador values (4, "APROBADO", '2023-06-08', "Cumple con con todo", 5, 4);
 insert into producto_moderador values (5, "APROBADO", '2023-06-08', "Cumple con con todo", 3, 1);
 
-insert into compra values (1, '2023-06-08', "tarjeta de credito", 900000, 3);
-insert into compra values (2, '2023-06-08', "contra entrega", 3000000, 4);
-insert into compra values (3, '2023-06-08', "tarjeta de credito", 6000000, 1);
-insert into compra values (4, '2023-06-08', "contra entrega", 1500000, 3);
-insert into compra values (5, '2023-06-08', "tarjeta de credito", 500000, 5);
+insert into compra values (1, '2023-06-08', "TARJETA_CREDITO", 900000, 3);
+insert into compra values (2, '2023-06-08', "TARJETA_DEBITO", 3000000, 4);
+insert into compra values (3, '2023-06-08', "TARJETA_CREDITO", 6000000, 1);
+insert into compra values (4, '2023-06-08', "EFECTY", 1500000, 3);
+insert into compra values (5, '2023-06-08', "TARJETA_CREDITO", 500000, 5);
 
 /* idDT - precioProducto - unidades - compra_id - producto_id */
 insert into detalle_compra values (1, 450000, 2, 1, 5);

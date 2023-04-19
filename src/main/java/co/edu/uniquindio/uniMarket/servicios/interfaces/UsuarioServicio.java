@@ -19,6 +19,8 @@ public interface UsuarioServicio {
 
     void validarExiste(int codigoUsuario) throws Exception;
 
+    void cambiarPassword(String email,String passwordNueva) throws Exception;
+
     //int marcarFavorito(Integer codigoUsuario, Integer codigoProducto);
 
     //int eliminarFavorito(Integer codigoUsuario, Integer codigoProducto);

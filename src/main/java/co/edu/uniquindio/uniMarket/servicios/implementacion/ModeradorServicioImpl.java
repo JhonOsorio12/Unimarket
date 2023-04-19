@@ -19,7 +19,6 @@ public class ModeradorServicioImpl implements ModeradorServicio {
         productoModerador.setMotivo(productoModerador.getMotivo());
         productoModerador.setModeradorPM(productoModerador.getModeradorPM());
         productoModerador.setProductoPM(productoModerador.getProductoPM());
-        productoModerador.setFecha(LocalDate.now().plusDays(60));
 
     }
 

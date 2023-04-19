@@ -4,6 +4,7 @@ import co.edu.uniquindio.uniMarket.DTO.ComentarioDTO;
 import co.edu.uniquindio.uniMarket.DTO.ComentarioGetDTO;
 import co.edu.uniquindio.uniMarket.DTO.EmailDTO;
 import co.edu.uniquindio.uniMarket.entidades.Comentario;
+import co.edu.uniquindio.uniMarket.entidades.Producto;
 import co.edu.uniquindio.uniMarket.repositorios.ComentarioRepo;
 import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ComentarioServicio;
@@ -32,21 +33,18 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     @Override
     public int crearComentario(ComentarioDTO comentarioDTO) throws Exception {
 
-        try {
-            Comentario comentario = new Comentario();
-            comentario.setFechaCreacion(LocalDateTime.now());
-            comentario.setMensaje(comentarioDTO.getMensaje());
-            comentario.setProductoCOM(productoServicio.obtener(comentarioDTO.getCodigoProducto()));
-            comentario.setUsuarioCOM(usuarioServicio.obtener(comentarioDTO.getCodigoUsuario()));
+        Producto p = productoServicio.obtener(comentarioDTO.getCodigoProducto());
+        Comentario comentario = new Comentario();
+        comentario.setFechaCreacion(LocalDateTime.now());
+        comentario.setMensaje(comentarioDTO.getMensaje());
+        comentario.setProductoCOM(p);
+        comentario.setUsuarioCOM(usuarioServicio.obtener(comentarioDTO.getCodigoUsuario()));
 
-            emailServicio.enviarEmail(new EmailDTO("Comentario", "Ha realizado un comentario: "
-                    + comentario.getCodigo() + comentario.getMensaje()
-                    + comentario.getUsuarioCOM().getNombre(), comentario.getUsuarioCOM().getEmail()));
+        emailServicio.enviarEmail(new EmailDTO("Comentario", "Ha realizado un comentario: "
+                + comentario.getCodigo() + comentario.getMensaje()
+                + comentario.getUsuarioCOM().getNombre(), p.getVendedor().getEmail()) );
 
-            return comentarioRepo.save(comentario).getCodigo();
-        }catch (Exception e){
-            throw new ResourceNotFoundException("No se pudo realizar el comentario");
-        }
+        return comentarioRepo.save(comentario).getCodigo();
 
     }
 
