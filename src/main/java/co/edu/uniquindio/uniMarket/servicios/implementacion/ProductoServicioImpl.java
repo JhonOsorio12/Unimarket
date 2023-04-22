@@ -29,12 +29,6 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     private final UsuarioServicio usuarioServicio;
 
-    private final ModeradorServicio moderadorServicio;
-
-
-
-    //private final ProductoModeRepo productoModeRepo;
-
     @Override
     public int crearProducto(ProductoDTO productoDTO) throws Exception {
 
@@ -226,7 +220,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     @Override
     public List<ProductoGetDTO> listarProductosNombre(String nombre) {
 
-        List<Producto> lista = productoRepo.listarProductosNombre(nombre, Activo.ACTIVO);
+        List<Producto> lista = productoRepo.listarProductosNombre(nombre);
         List<ProductoGetDTO> respuesta = new ArrayList<>();
 
         for (Producto p : lista){
@@ -287,10 +281,6 @@ public class ProductoServicioImpl implements ProductoServicio {
         return respuesta;
     }
 
-    @Override
-    public List<ProductoGetDTO> listarFavoritosUsuario(Integer codigoUsuario) {
-        return null;
-    }
 
     @Override
     public int actualizarUnidades(Producto producto, int unidades) throws Exception {

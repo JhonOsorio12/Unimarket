@@ -2,10 +2,15 @@ package co.edu.uniquindio.uniMarket.servicios.implementacion;
 
 
 import co.edu.uniquindio.uniMarket.DTO.*;
+import co.edu.uniquindio.uniMarket.entidades.Calificacion;
+import co.edu.uniquindio.uniMarket.entidades.Producto;
 import co.edu.uniquindio.uniMarket.entidades.Usuario;
+import co.edu.uniquindio.uniMarket.repositorios.CalificacionRepo;
+import co.edu.uniquindio.uniMarket.repositorios.ProductoRepo;
 import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
 import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.ProductoServicio;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +25,10 @@ import java.util.Optional;
 public class UsuarioServicioImpl implements UsuarioServicio {
 
     private final UsuarioRepo usuarioRepo;
+
+    private final ProductoRepo productoRepo;
+
+    private final CalificacionRepo calificacionRepo;
 
     private final EmailServicio emailServicio;
 
@@ -127,15 +136,17 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
-    public void cambiarPassword(String email, String passwordNueva) throws Exception {
+    public boolean cambiarContraseña(String email, String passwordNueva) throws Exception {
         Usuario personaEncontrada = usuarioRepo.buscarUsuario(email);
 
         if (personaEncontrada != null){
             personaEncontrada.setPassword(passwordEncoder.encode(passwordNueva));
             usuarioRepo.save(personaEncontrada);
-        } else {
+        }else {
             throw new ResourceNotFoundException("No existe el usuario con el correo dado");
         }
+
+        return true;
     }
 
     private Usuario convertir(UsuarioDTO usuarioDTO){
@@ -151,12 +162,32 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
 
-
-
+    //---------------------------- METODOS DE CALIFICACIÓN ----------------------------------------------------------
     @Override
-    public int crearCuentaPremium(CuentaPremiumDTO cuentaPremiumDTO) {
+    public CalificacionGetDTO asignarCalificacion(CalificacionDTO calificacionDTO) throws Exception {
 
-        return 0;
+        //Validar si el usuario existe
+        validarExiste(calificacionDTO.getCodigoUsuario());
+
+        //Validar el producto
+        Producto productoExiste = productoRepo.buscarProductoPorNombre(calificacionDTO.getNombreProducto());
+
+        if (productoExiste == null){
+            throw new ResourceNotFoundException("EL PRODUCTO NO SE ENCONTRÓ por el codigo ingresado");
+        }
+
+        //Se le va actualizando el valor de la calificación al producto
+        //productoExiste.getCalificacion().add();
+        //productoRepo.save(productoExiste);
+
+        //return calificacionRepo.save(calificacion);
+        return null;
+    }
+
+    public Double promedioPelicula (ProductoDTO productoDTO){
+
+        Double promedio = calificacionRepo.obtenerPromedioCalificacionPelicula(productoDTO.getNombre());
+        return promedio;
     }
 
 

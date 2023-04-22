@@ -43,7 +43,5 @@ public interface ProductoServicio {
 
     List<ProductoGetDTO> listarProductos() throws Exception;
 
-    List<ProductoGetDTO> listarFavoritosUsuario(Integer codigoUsuario) throws Exception;
-
     int actualizarUnidades(Producto producto, int unidades) throws Exception;
 }

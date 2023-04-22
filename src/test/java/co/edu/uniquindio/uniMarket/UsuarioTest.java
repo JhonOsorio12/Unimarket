@@ -2,6 +2,9 @@ package co.edu.uniquindio.uniMarket;
 
 import co.edu.uniquindio.uniMarket.DTO.UsuarioDTO;
 import co.edu.uniquindio.uniMarket.DTO.UsuarioGetDTO;
+import co.edu.uniquindio.uniMarket.entidades.Activo;
+import co.edu.uniquindio.uniMarket.entidades.Producto;
+import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
 import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.UsuarioServicio;
@@ -21,7 +24,6 @@ public class UsuarioTest {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    private UsuarioRepo usuarioRepo;
 
     @Test
     @Sql("classpath:dataset.sql")
@@ -31,6 +33,7 @@ public class UsuarioTest {
         //Se crea el usuario con el servicio de crearUsuario
         UsuarioDTO usuarioDTO = new UsuarioDTO("pepe12@gmail.com", "Pepito Perez", "1234", "calle 12", "4589");
 
+        //Se llama el servicio para registrar el usuario
         int codigo = usuarioServicio.registrarUsuario(usuarioDTO);
 
         //Se espera que si se registra correctamente entonces el servicio no debe retornar 0
@@ -43,13 +46,12 @@ public class UsuarioTest {
     @DisplayName("Test eliminar un usuario")
     public void eliminarUsuarioTest() throws Exception {
 
-        try {
-            usuarioServicio.eliminarUsuario(1);
-            Assertions.assertTrue(true);
-        }catch (Exception e){
-            throw new ResourceNotFoundException("El usuario no exite");
-        }
+        //Se llama el servicio para borrar el usuario dado su codigo
+        int codigoBorrado = usuarioServicio.eliminarUsuario(1);
 
+        //Se llama el servicio para obtener el usuario completo dado su código
+        //para comprobar que ya no existe.
+        Assertions.assertThrows(Exception.class, () -> usuarioServicio.obtenerUsuario(codigoBorrado));
 
         /*
         //Para eliminar el usuario primero se debe crear
@@ -89,12 +91,11 @@ public class UsuarioTest {
     @DisplayName("Test obtener un usuario")
     public void obtenerUsuarioTest() throws Exception{
 
-        try {
-            UsuarioGetDTO usuario = usuarioServicio.obtenerUsuario(1);
-            Assertions.assertTrue(true);
-        }catch (Exception e) {
-            throw new ResourceNotFoundException("Usuario no encontrado");
-        }
+        //Se llama el servicio para obtener el usuario completo dado su código
+        UsuarioGetDTO usuario = usuarioServicio.obtenerUsuario(1);
+
+        //Comprobamos de la dirección que está en la base de datos coincide con la que esperamos
+        Assertions.assertEquals("calle 12", usuario.getDireccion());
 
         /*
         //Para obtener el usuario primero se debe crear
@@ -108,13 +109,20 @@ public class UsuarioTest {
         Assertions.assertEquals("calle 12", usuarioGetDTO.getDireccion());
         */
 
+    }
 
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void cambiarPasswordTest() throws Exception {
 
+        //Se llama el servicio para poner la nueva contraseña
+        Boolean nuevaContraseña = usuarioServicio.cambiarContraseña("jhon@gmail.com", "1234");
 
-
-
+        //Esperamos un true como respuesta
+        Assertions.assertTrue(nuevaContraseña);
 
     }
+
 
 
 

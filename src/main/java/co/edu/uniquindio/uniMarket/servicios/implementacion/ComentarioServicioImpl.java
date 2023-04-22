@@ -5,6 +5,7 @@ import co.edu.uniquindio.uniMarket.DTO.ComentarioGetDTO;
 import co.edu.uniquindio.uniMarket.DTO.EmailDTO;
 import co.edu.uniquindio.uniMarket.entidades.Comentario;
 import co.edu.uniquindio.uniMarket.entidades.Producto;
+import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.ComentarioRepo;
 import co.edu.uniquindio.uniMarket.servicios.excepcion.ResourceNotFoundException;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.ComentarioServicio;
@@ -33,16 +34,17 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     @Override
     public int crearComentario(ComentarioDTO comentarioDTO) throws Exception {
 
-        Producto p = productoServicio.obtener(comentarioDTO.getCodigoProducto());
+        Producto producto = productoServicio.obtener(comentarioDTO.getCodigoProducto());
+        Usuario usuario = usuarioServicio.obtener(comentarioDTO.getCodigoUsuario());
         Comentario comentario = new Comentario();
         comentario.setFechaCreacion(LocalDateTime.now());
         comentario.setMensaje(comentarioDTO.getMensaje());
-        comentario.setProductoCOM(p);
-        comentario.setUsuarioCOM(usuarioServicio.obtener(comentarioDTO.getCodigoUsuario()));
+        comentario.setProductoCOM(producto);
+        comentario.setUsuarioCOM(usuario);
 
         emailServicio.enviarEmail(new EmailDTO("Comentario", "Ha realizado un comentario: "
                 + comentario.getCodigo() + comentario.getMensaje()
-                + comentario.getUsuarioCOM().getNombre(), p.getVendedor().getEmail()) );
+                + comentario.getUsuarioCOM().getNombre(), producto.getVendedor().getEmail()) );
 
         return comentarioRepo.save(comentario).getCodigo();
 
@@ -51,7 +53,6 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     @Override
     public List<ComentarioGetDTO> listarComentarios(Integer codigoProducto) throws Exception {
 
-        try {
             List<Comentario> lista = comentarioRepo.listarComentarios(codigoProducto);
             List<ComentarioGetDTO> respuesta = new ArrayList<>();
 
@@ -60,9 +61,6 @@ public class ComentarioServicioImpl implements ComentarioServicio {
             }
 
             return respuesta;
-        }catch (Exception e){
-            throw new ResourceNotFoundException("No se pudo listar los comentarios");
-        }
     }
 
     private ComentarioGetDTO convertir(Comentario comentario){

@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 
     //JPQL ----> lenguaje de consultas para JPA
-    @Query("select u from Usuario u where u.email = :correo")
-    Usuario buscarUsuario(String correo);
+    @Query("select u from Usuario u where u.email = :email")
+    Usuario buscarUsuario(String email);
 
     @Query("select u from Usuario u where u.email = :correo and u.codigo <> :codigo")
     Usuario buscarCorreo(String correo, int codigo);

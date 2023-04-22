@@ -1,8 +1,7 @@
 package co.edu.uniquindio.uniMarket.servicios.interfaces;
 
-import co.edu.uniquindio.uniMarket.DTO.CuentaPremiumDTO;
-import co.edu.uniquindio.uniMarket.DTO.UsuarioDTO;
-import co.edu.uniquindio.uniMarket.DTO.UsuarioGetDTO;
+import co.edu.uniquindio.uniMarket.DTO.*;
+import co.edu.uniquindio.uniMarket.entidades.Calificacion;
 import co.edu.uniquindio.uniMarket.entidades.Usuario;
 
 public interface UsuarioServicio {
@@ -19,15 +18,13 @@ public interface UsuarioServicio {
 
     void validarExiste(int codigoUsuario) throws Exception;
 
-    void cambiarPassword(String email,String passwordNueva) throws Exception;
+    boolean cambiarContraseña(String email,String passwordNueva) throws Exception;
 
-    //int marcarFavorito(Integer codigoUsuario, Integer codigoProducto);
+    CalificacionGetDTO asignarCalificacion(CalificacionDTO calificacionDTO) throws Exception;
 
-    //int eliminarFavorito(Integer codigoUsuario, Integer codigoProducto);
+    Double promedioPelicula (ProductoDTO productoDTO);
 
-    int crearCuentaPremium(CuentaPremiumDTO cuentaPremiumDTO);
 
-    //actualizar, eliminar
 
 
 }

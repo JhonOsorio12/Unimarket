@@ -28,8 +28,8 @@ public class ImagenesController {
                 MensajeDTO(HttpStatus.OK, false, respuesta));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MensajeDTO> eliminarImagen(@PathVariable String id) throws Exception{
+    @DeleteMapping("/eliminar_imagen")
+    public ResponseEntity<MensajeDTO> eliminarImagen(@RequestBody String id) throws Exception{
         Map respuesta = cloudinaryServicio.eliminarImagen(id);
         return ResponseEntity.status(HttpStatus.OK).body( new
                 MensajeDTO(HttpStatus.OK, false, respuesta));

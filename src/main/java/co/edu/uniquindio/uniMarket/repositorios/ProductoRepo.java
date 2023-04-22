@@ -17,8 +17,8 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
     //List<Producto> findByVendedor(Usuario vendedor);
 
-    @Query("select p from Producto p where :categoria member of p.categoria and p.fechaLimite <= current_date " +
-            "and p.activo = co.edu.uniquindio.uniMarket.entidades.Activo.ACTIVO")
+    @Query("select p from Producto p join p.productoModerador pm where :categoria member of p.categoria and p.fechaLimite <= current_date " +
+            "and pm.estado = co.edu.uniquindio.uniMarket.entidades.Estado.APROBADO")
     List<Producto> listarProductosCategoria(Categoria categoria);
 
     //@Query("update Producto p set p. =: codigoProducto ")
@@ -28,19 +28,28 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
     List<Producto> listarProductosEstado(Estado estado);
 
 
-    @Query("select p from Producto p where p.nombre like concat( '%', :nombre,  '%' ) and p.fechaLimite < current_date and p.activo = :activo" )
-    List<Producto> listarProductosNombre(String nombre, Activo activo);
+    @Query("select p from Producto p join p.productoModerador pm where p.nombre like concat( '%', :nombre,  '%' ) and p.fechaLimite < current_date" +
+            " and pm.estado = co.edu.uniquindio.uniMarket.entidades.Estado.APROBADO")
+    List<Producto> listarProductosNombre(String nombre);
 
-    @Query("select p from Producto p where p.nombre like concat( '%', :nombre, '%' ) and p.fechaLimite < current_date and p.precio > :precioMin and p.precio < :precioMax")
+    @Query("select p from Producto p join p.productoModerador pm where p.nombre like concat( '%', :nombre, '%' ) and p.fechaLimite < current_date and" +
+            " p.precio > :precioMin and p.precio < :precioMax and pm.estado = co.edu.uniquindio.uniMarket.entidades.Estado.APROBADO")
     List<Producto> listarProductosPrecio(String nombre, float precioMin, float precioMax, Sort sort);
 
-    @Query("select f from Usuario u join u.favoritos f where u.codigo = :codigoUsuario " +
-            "and f.activo = co.edu.uniquindio.uniMarket.entidades.Activo.ACTIVO")
+    @Query("select f from Usuario u join u.favoritos f join f.productoModerador pm  " +
+           " where f.fechaLimite < current_date and u.codigo = :codigoUsuario " +
+            "and pm.estado = co.edu.uniquindio.uniMarket.entidades.Estado.APROBADO")
     List<Producto> listarProductosFavoritos(int codigoUsuario);
 
-    @Query("select p from Producto p where p.fechaLimite <= current_date and p.activo = co.edu.uniquindio.uniMarket.entidades.Estado.APROBADO")
+    @Query("select p from Producto p join p.productoModerador pm where p.fechaLimite <= current_date and" +
+            " pm.estado = co.edu.uniquindio.uniMarket.entidades.Estado.APROBADO")
     List<Producto> listarProductos();
 
     Optional<Producto> findById(int codigoProducto);
+
+
+    // Esta consulta válida sí existe el producto dado el nombre del producto
+    @Query("select p from Producto p where p.nombre = :nombre")
+    Producto buscarProductoPorNombre(String nombre);
 
 }

@@ -30,7 +30,8 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**", "/api/imagenes/**").permitAll()
                 .anyRequest().authenticated();
-
+        //http.authorizeHttpRequests().requestMatchers("/api/productos/**").permitAll()
+              //  .anyRequest().authenticated();
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

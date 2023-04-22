@@ -94,67 +94,7 @@ public class CompraServicioImpl implements CompraServicio {
 
     }
 
-    /*
-    @Override
-    public Compra crearCompra(CompraDTO compraDTO, Usuario usuario, Producto producto, ArrayList<DetalleCompra> detalleCompra) throws Exception {
 
-        Compra compra;
-        if (producto.getVendedor().getCodigo().equals(usuario.getCodigo())) {
-            throw new ResourceNotFoundException("Usted es el vendedor no puede comprar sus propios productos");
-        } else {
-            compra = new Compra();
-
-            Optional<Usuario> usuarioExistente = usuarioRepo.findById(usuario.getCodigo());
-
-            if (usuarioExistente.isEmpty()) {
-                throw new ResourceNotFoundException("El usuario no existe");
-            }
-
-            Optional<Producto> productoExiste = productoRepo.findById(producto.getCodigo());
-
-            compra.setFechaCreacion(LocalDateTime.now(ZoneId.of("America/Bogota")));
-            compra.setUsuario(usuarioServicio.obtener(compraDTO.getCodigoUsuario()));
-            compra.setMedioPago(compraDTO.getMetodoPago());
-
-            float valorTotal = calcularValorTotal(detalleCompra);
-            compra.setValorTotal(valorTotal);
-
-            compraRepo.save(compra);
-
-            for (DetalleCompra dt : detalleCompra) {
-
-                List<Producto> productoLista = productoRepo.listarProductosUsuario(usuario.getCodigo());
-
-                if (productoExiste.isEmpty()) {
-                    throw new ResourceNotFoundException("El producto no existe");
-                } else {
-                    for (Producto p : productoLista) {
-                        dt.setProductoDT(p);
-                    }
-                }
-
-                dt = new DetalleCompra();
-                dt.setCompraDT(compra);
-                dt.setPrecioProducto(dt.getPrecioProducto());
-                dt.setUnidades(dt.getUnidades());
-
-                detalleCompraRepo.save(dt);
-            }
-
-            emailServicio.enviarEmail(new EmailDTO("Compra", "Su compra se realizó con éxito, los datos de la compra fueron: "
-                    +compra.getCodigo()+ compra.getValorTotal()+compra.getFechaCreacion()+compra.getMedioPago()
-                    + usuario.getNombre(), usuario.getEmail()));
-
-            emailServicio.enviarEmail(new EmailDTO("Compra", "Su venta se realizó con éxito, los datos de la venta fueron: "
-                    +compra.getCodigo()+ compra.getValorTotal()+compra.getFechaCreacion()+compra.getMedioPago()
-                    + producto.getVendedor().getNombre(), producto.getVendedor().getEmail()));
-        }
-
-        return compra;
-
-    }
-
-     */
 
     @Override
     public List<CompraGetDTO> listarComprasUsuario(Integer codigoUsuario) throws Exception {
