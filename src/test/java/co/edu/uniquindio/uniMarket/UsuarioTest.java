@@ -116,7 +116,7 @@ public class UsuarioTest {
     public void cambiarPasswordTest() throws Exception {
 
         //Se llama el servicio para poner la nueva contraseña
-        Boolean nuevaContraseña = usuarioServicio.cambiarContraseña("jhon@gmail.com", "1234");
+        Boolean nuevaContraseña = usuarioServicio.cambiarContraseña("jhon@gmail.com", "4321");
 
         //Esperamos un true como respuesta
         Assertions.assertTrue(nuevaContraseña);
