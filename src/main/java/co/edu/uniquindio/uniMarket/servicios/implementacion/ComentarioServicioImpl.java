@@ -35,6 +35,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     public int crearComentario(ComentarioDTO comentarioDTO) throws Exception {
 
         Producto producto = productoServicio.obtener(comentarioDTO.getCodigoProducto());
+
         Usuario usuario = usuarioServicio.obtener(comentarioDTO.getCodigoUsuario());
         Comentario comentario = new Comentario();
         comentario.setFechaCreacion(LocalDateTime.now());

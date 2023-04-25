@@ -229,11 +229,15 @@ public class ProductoTest {
     @Sql("classpath:dataset.sql")
     public void actualizarEstadoTest() throws Exception{
 
+            //Se llama el servicio para obtener el producto dado su codigo
             Producto producto = productoServicio.obtener(1);
+            //set al estado del producto
             producto.setActivo(Activo.ACTIVO);
 
+            //Se llama el servicio para actualizar el estado del producto
             int nuevoEstado = productoServicio.actualizarPorEstado(producto,Activo.valueOf("ACTIVO"));
 
+            //Se comprueba que se haya actualizado el estado
             Assertions.assertNotEquals("INACTIVO", nuevoEstado);
     }
 
@@ -241,21 +245,41 @@ public class ProductoTest {
     @Sql("classpath:dataset.sql")
     public void actualizarCategoriaTest() throws Exception{
 
+            //Se llama el servicio para obtener el producto dado su codigo
             Producto producto = productoServicio.obtener(3);
+            //Se setea la categoria del producto obtenido
             producto.setCategoria(Collections.singletonList(Categoria.TECNOLOGIA));
 
+            //Se agrega a una nueva lista y se llama el servicio para enviarle la nueva categoria
             List<ProductoGetDTO> nuevaCategoria = productoServicio.listarProductosCategoria(Categoria.TECNOLOGIA);
 
+            //Se comprueba que se haya actualizado la categoria
             Assertions.assertNotEquals("ROPA", nuevaCategoria);
 
     }
 
     @Test
     @Sql("classpath:dataset.sql")
+    public void listarProductosCategoriaTest() throws Exception {
+
+        //Se llama el servicio para listar los productos que son de la categoria dada
+        List<ProductoGetDTO> lista = productoServicio.listarProductosCategoria(Categoria.TECNOLOGIA);
+        lista.forEach(System.out::println);
+
+        //Se comprueba la cantidad de productos dada la categoria en la lista
+        Assertions.assertEquals(1,lista.size());
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
     public void listarProductosUsuarioTest() throws Exception{
-           List<ProductoGetDTO> lista = productoServicio.listarProductosUsuario(1);
-           lista.forEach(System.out::println);
-           Assertions.assertEquals(2, lista.size());
+
+        //Se llama el servicio para listar los productos del usuario dado su codigo
+        List<ProductoGetDTO> lista = productoServicio.listarProductosUsuario(1);
+        lista.forEach(System.out::println);
+
+        //Se comprueba la cantidad de productos que tiene el usuario
+        Assertions.assertEquals(2, lista.size());
     }
 
     @Test

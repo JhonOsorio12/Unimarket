@@ -15,13 +15,12 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
         MensajeDTO<String> dto = new MensajeDTO<>(HttpStatus.UNAUTHORIZED, true, "Token no encontrado o inválido");
 
-        response.setContentType("application/jason");
+        response.setContentType("application/json");
         response.setStatus(dto.getEstado().value());
         response.getWriter().write(new ObjectMapper().writeValueAsString(dto));
         response.getWriter().flush();

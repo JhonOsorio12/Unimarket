@@ -17,6 +17,7 @@ public class ComentarioControlador {
 
     @PostMapping("/crear")
     public ResponseEntity<MensajeDTO> crearComentario(@RequestBody ComentarioDTO comentarioDTO) throws Exception{
+
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
                 HttpStatus.CREATED,
                 false,

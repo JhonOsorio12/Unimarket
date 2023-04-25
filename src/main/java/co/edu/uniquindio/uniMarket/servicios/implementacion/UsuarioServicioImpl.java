@@ -32,8 +32,6 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     private final EmailServicio emailServicio;
 
-    //private final ProductoServicio productoServicio;
-
     private final PasswordEncoder passwordEncoder;
 
     @Override

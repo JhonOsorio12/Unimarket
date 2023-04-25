@@ -58,8 +58,8 @@ public class ProductoControlador {
                 "Se obtuvo el producto correctamente"));
     }
 
-    @PutMapping("/actualizar/{activo}")
-    public ResponseEntity<MensajeDTO> actualizarPorEstado(@Valid @RequestBody Producto producto, Activo activo) throws Exception{
+    @PutMapping("/actualizarestado/{activo}")
+    public ResponseEntity<MensajeDTO> actualizarPorEstado(@Valid @RequestBody Producto producto,@PathVariable Activo activo) throws Exception{
             productoServicio.actualizarPorEstado(producto, activo);
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
                 HttpStatus.OK,
@@ -67,7 +67,7 @@ public class ProductoControlador {
                 "El estado se actualizó exitosamente"));
     }
 
-    @GetMapping("/listar/{categoria}")
+    @GetMapping("/listarcategoria/{categoria}")
     public ResponseEntity<MensajeDTO> listarProductosCategoria(@PathVariable Categoria categoria){
 
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
@@ -77,7 +77,7 @@ public class ProductoControlador {
     }
 
 
-    @GetMapping("/listar/{codigoUsuario}")
+    @GetMapping("/listarproductousuario/{codigoUsuario}")
     public ResponseEntity<MensajeDTO> listarProductosUsuario(@PathVariable Integer codigoUsuario){
 
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
@@ -86,7 +86,7 @@ public class ProductoControlador {
                 productoServicio.listarProductosUsuario(codigoUsuario)));
     }
 
-    @GetMapping("/listar/{estado}")
+    @GetMapping("/listarestado/{estado}")
     public ResponseEntity<MensajeDTO> listarProductosEstado(@PathVariable Estado estado){
 
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
@@ -95,7 +95,7 @@ public class ProductoControlador {
                 productoServicio.listarProductosEstado(estado)));
     }
 
-    @GetMapping("/listar/{nombre}")
+    @GetMapping("/listarnombre/{nombre}")
     public ResponseEntity<MensajeDTO> listarProductosNombre(@PathVariable String nombre) {
 
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
@@ -104,7 +104,7 @@ public class ProductoControlador {
                 productoServicio.listarProductosNombre(nombre)));
     }
 
-    @GetMapping("/listar/{nombre}/{precioMin}/{precioMax}")
+    @GetMapping("/listarnombreprecio/{nombre}/{precioMin}/{precioMax}")
     public ResponseEntity<MensajeDTO> listarProductosPrecio(@PathVariable String nombre, @PathVariable float precioMin, @PathVariable float precioMax){
 
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
@@ -113,7 +113,7 @@ public class ProductoControlador {
                 productoServicio.listarProductosPrecio(nombre, precioMin, precioMax)));
     }
 
-    @GetMapping("/listar/{}")
+    @GetMapping("/listarproductosfavoritos/{codigoUsuario}")
     public ResponseEntity<MensajeDTO> listarProductosFavoritos(Integer codigoUsuario) throws Exception{
 
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
@@ -122,7 +122,7 @@ public class ProductoControlador {
                 productoServicio.listarProductosFavoritos(codigoUsuario)));
     }
 
-    @PostMapping("/crear/{codigoUsuario}/{codigoProducto}")
+    @PostMapping("/crearfavorito/{codigoUsuario}/{codigoProducto}")
     public ResponseEntity<MensajeDTO> crearFavorito(@PathVariable int codigoUsuario, @PathVariable int codigoProducto) throws Exception{
             productoServicio.crearFavorito(codigoUsuario, codigoProducto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
@@ -131,7 +131,7 @@ public class ProductoControlador {
                 "Se creó el favorito corractamente"));
     }
 
-    @DeleteMapping("/eliminar/{codigoUsuario}/{codigoProducto}")
+    @DeleteMapping("/eliminarfavorito/{codigoUsuario}/{codigoProducto}")
     public ResponseEntity<MensajeDTO> eliminarFavorito(@PathVariable int codigoUsuario, @PathVariable int codigoProducto) throws Exception{
         productoServicio.eliminarFavorito(codigoUsuario, codigoProducto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
@@ -140,7 +140,7 @@ public class ProductoControlador {
                 "Se eliminó el favorito correctamente"));
     }
 
-    @PutMapping("/actualizar/{unidades}")
+    @PutMapping("/actualizarunidades/{unidades}")
     public ResponseEntity<MensajeDTO> actualizarUnidades(Producto producto, int unidades) throws Exception{
             productoServicio.actualizarUnidades(producto, unidades);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
@@ -149,7 +149,7 @@ public class ProductoControlador {
                 "Las unidades se actualizaron exitosamente"));
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/listarproductos")
     public ResponseEntity<MensajeDTO> listarProductos() throws Exception{
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(

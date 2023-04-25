@@ -21,8 +21,6 @@ public class ModeradorServicioImpl implements ModeradorServicio {
 
     private ProductoServicio productoServicio;
 
-    //private ModeradorServicio moderadorServicio;
-
     private EmailServicio emailServicio;
 
     private final ModeradorRepo moderadorRepo;
