@@ -12,9 +12,7 @@ import java.util.List;
 
 public interface CompraServicio {
 
-    //Compra crearCompra(CompraDTO compraDTO, Usuario usuario, Producto producto, ArrayList<DetalleCompra> detalleCompra) throws  Exception;
-
-    int crearCompra2(CompraDTO compraDTO) throws Exception;
+    int crearCompra(CompraDTO compraDTO) throws Exception;
 
     List<CompraGetDTO> listarComprasUsuario(Integer codigoUsuario) throws Exception;
 

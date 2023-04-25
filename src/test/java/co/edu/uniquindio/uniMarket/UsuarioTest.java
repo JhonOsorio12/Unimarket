@@ -1,8 +1,11 @@
 package co.edu.uniquindio.uniMarket;
 
+import co.edu.uniquindio.uniMarket.DTO.CalificacionDTO;
+import co.edu.uniquindio.uniMarket.DTO.ProductoDTO;
 import co.edu.uniquindio.uniMarket.DTO.UsuarioDTO;
 import co.edu.uniquindio.uniMarket.DTO.UsuarioGetDTO;
 import co.edu.uniquindio.uniMarket.entidades.Activo;
+import co.edu.uniquindio.uniMarket.entidades.Categoria;
 import co.edu.uniquindio.uniMarket.entidades.Producto;
 import co.edu.uniquindio.uniMarket.entidades.Usuario;
 import co.edu.uniquindio.uniMarket.repositorios.UsuarioRepo;
@@ -16,6 +19,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 @Transactional
@@ -123,7 +130,51 @@ public class UsuarioTest {
 
     }
 
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void asignarCalificacionTest() throws Exception {
 
+        //Se crea la calificacion
+        CalificacionDTO calificacionDTO = new CalificacionDTO(
+                5,
+                "Televisor sony",
+                1,
+                1
+        );
+
+        //Se llama el servicio para asignar la calificacion al producto
+        int calificacion = usuarioServicio.asignarCalificacion(calificacionDTO);
+
+        //Se comprueba que no sea null
+        Assertions.assertNotNull(calificacion);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void promedioProductoTest() throws Exception {
+
+        //Primero se debe crear las imagenes para el producto
+        Map<String, String> imagenes = new HashMap<>();
+        imagenes.put("imagen1", "http://www.google.com/images/imagentenis.png");
+        imagenes.put("imagen2", "http://www.google.com/images/imagentenis_original.png");
+
+        //Se crea el producto
+        ProductoDTO productoDTO = new ProductoDTO(
+                "el mejor televisor",
+                "Televisor Sony",
+                3000000,
+                5,
+                imagenes,
+                List.of(Categoria.TECNOLOGIA),
+                1
+        );
+
+        //Se llama el servicio para sacar el promedio de ese producto
+        Double promedio = usuarioServicio.promedioProducto(productoDTO);
+
+        //Se comprueba que no se null
+        Assertions.assertNotNull(promedio);
+    }
 
 
 }

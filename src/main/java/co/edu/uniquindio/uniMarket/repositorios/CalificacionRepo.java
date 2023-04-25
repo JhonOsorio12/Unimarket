@@ -16,6 +16,6 @@ public interface CalificacionRepo extends JpaRepository<Calificacion, Integer> {
 
     // Esta consulta valida el promedio de las calificaciones de cada producto ingresando su nombre
     @Query("select avg(c.puntuacion) from Calificacion c where c.producto.nombre = :nombre")
-    Double obtenerPromedioCalificacionPelicula(String nombre);
+    Double obtenerPromedioCalificacionProducto(String nombre);
 
 }

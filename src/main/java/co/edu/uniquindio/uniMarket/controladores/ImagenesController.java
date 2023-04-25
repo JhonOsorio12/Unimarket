@@ -3,7 +3,6 @@ package co.edu.uniquindio.uniMarket.controladores;
 import co.edu.uniquindio.uniMarket.DTO.MensajeDTO;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.CloudinaryServicio;
 import lombok.AllArgsConstructor;
-import org.hibernate.type.descriptor.java.spi.MapEntryJavaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,15 +23,19 @@ public class ImagenesController {
 
         File imagen = cloudinaryServicio.convertir(file);
         Map respuesta = cloudinaryServicio.subirImagen(imagen, "Unimarket");
-        return ResponseEntity.status(HttpStatus.OK).body( new
-                MensajeDTO(HttpStatus.OK, false, respuesta));
+        return ResponseEntity.status(HttpStatus.OK).body( new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                respuesta));
     }
 
     @DeleteMapping("/eliminar_imagen")
     public ResponseEntity<MensajeDTO> eliminarImagen(@RequestBody String id) throws Exception{
         Map respuesta = cloudinaryServicio.eliminarImagen(id);
-        return ResponseEntity.status(HttpStatus.OK).body( new
-                MensajeDTO(HttpStatus.OK, false, respuesta));
+        return ResponseEntity.status(HttpStatus.OK).body( new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                respuesta));
     }
 
 }

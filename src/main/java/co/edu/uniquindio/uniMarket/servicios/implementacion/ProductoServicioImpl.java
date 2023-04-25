@@ -44,7 +44,6 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setFechaCreado(LocalDateTime.now());
         producto.setFechaLimite(LocalDateTime.now().plusDays(60));
 
-        //moderadorServicio.validarProducto(producto);
 
         return productoRepo.save(producto).getCodigo();
 
@@ -96,6 +95,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         return productoRepo.save(producto).getCodigo();
     }
 
+    /*
     @Override
     public int actualizarPorCantidad(Integer codigoProducto, Integer unidades) throws Exception {
 
@@ -105,6 +105,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         productoRepo.save(producto);
         return codigoProducto;
     }
+     */
 
     @Override
     public ProductoGetDTO obtenerProducto(int codigoProducto) throws Exception {
@@ -233,7 +234,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     @Override
     public List<ProductoGetDTO> listarProductosFavoritos(Integer codigoUsuario) throws Exception{
         usuarioServicio.validarExiste(codigoUsuario);
-        //DUDA...
+
         return convertirProducto(productoRepo.listarProductosFavoritos(codigoUsuario));
     }
 

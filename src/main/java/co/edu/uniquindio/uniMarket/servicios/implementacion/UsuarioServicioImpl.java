@@ -32,6 +32,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     private final EmailServicio emailServicio;
 
+    //private final ProductoServicio productoServicio;
+
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -164,7 +166,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     //---------------------------- METODOS DE CALIFICACIÓN ----------------------------------------------------------
     @Override
-    public CalificacionGetDTO asignarCalificacion(CalificacionDTO calificacionDTO) throws Exception {
+    public int asignarCalificacion(CalificacionDTO calificacionDTO) throws Exception {
 
         //Validar si el usuario existe
         validarExiste(calificacionDTO.getCodigoUsuario());
@@ -177,17 +179,27 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         }
 
         //Se le va actualizando el valor de la calificación al producto
-        //productoExiste.getCalificacion().add();
-        //productoRepo.save(productoExiste);
+        productoExiste.getCalificacion().add(convertir(calificacionDTO));
+        productoRepo.save(productoExiste);
 
-        //return calificacionRepo.save(calificacion);
-        return null;
+        return calificacionRepo.save(convertir(calificacionDTO)).getCodigo();
+
     }
 
-    public Double promedioPelicula (ProductoDTO productoDTO){
+    public Double promedioProducto (ProductoDTO productoDTO) throws Exception{
 
-        Double promedio = calificacionRepo.obtenerPromedioCalificacionPelicula(productoDTO.getNombre());
+        Double promedio = calificacionRepo.obtenerPromedioCalificacionProducto(productoDTO.getNombre());
         return promedio;
+    }
+
+    private Calificacion convertir(CalificacionDTO calificacionDTO) throws Exception{
+
+        Calificacion calificacion = new Calificacion();
+        calificacion.setPuntuacion(calificacionDTO.getPuntuacion());
+        calificacion.setUsuario(obtener(calificacionDTO.getCodigoUsuario()));
+
+        return calificacion;
+
     }
 
 

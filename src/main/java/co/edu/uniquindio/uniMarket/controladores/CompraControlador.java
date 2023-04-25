@@ -20,18 +20,28 @@ public class CompraControlador {
     private final CompraServicio compraServicio;
 
     @PostMapping("/crear")
-    public ResponseEntity<MensajeDTO> crearCompra2(@RequestBody CompraDTO compraDTO) throws Exception{
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(HttpStatus.CREATED, false, compraServicio.crearCompra2(compraDTO)));
+    public ResponseEntity<MensajeDTO> crearCompra(@RequestBody CompraDTO compraDTO) throws Exception{
+            compraServicio.crearCompra(compraDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
+                HttpStatus.CREATED,
+                false,
+                "La compra se creó exitosamente"));
     }
 
     @GetMapping("/listar/{codigoUsuario}")
     public ResponseEntity<MensajeDTO> listarComprasUsuario(@PathVariable Integer codigoUsuario) throws Exception{
-        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK, false, compraServicio.listarComprasUsuario(codigoUsuario)));
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                compraServicio.listarComprasUsuario(codigoUsuario)));
     }
 
     @GetMapping("/obtener/{codigoCompra}")
     public ResponseEntity<MensajeDTO> obtenerCompra(@PathVariable int codigoCompra) throws Exception{
-        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK, false, compraServicio.obtenerCompra(codigoCompra)));
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                compraServicio.obtenerCompra(codigoCompra)));
     }
 
 }

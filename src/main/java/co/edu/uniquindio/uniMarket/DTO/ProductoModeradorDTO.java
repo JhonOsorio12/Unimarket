@@ -1,5 +1,6 @@
 package co.edu.uniquindio.uniMarket.DTO;
 
+import co.edu.uniquindio.uniMarket.entidades.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,8 @@ import lombok.Setter;
 public class ProductoModeradorDTO {
 
     private String motivo;
+
+    private Estado estado;
 
     private int codigoProducto;
 

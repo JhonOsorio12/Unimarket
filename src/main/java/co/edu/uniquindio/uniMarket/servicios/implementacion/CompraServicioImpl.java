@@ -37,7 +37,7 @@ public class CompraServicioImpl implements CompraServicio {
     private final UsuarioServicio usuarioServicio;
 
     @Override
-    public int crearCompra2(CompraDTO compraDTO) throws Exception {
+    public int crearCompra(CompraDTO compraDTO) throws Exception {
 
         Compra compra;
         Usuario usuario;

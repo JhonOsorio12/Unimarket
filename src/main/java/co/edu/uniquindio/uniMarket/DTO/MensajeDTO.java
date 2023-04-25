@@ -16,5 +16,4 @@ public class MensajeDTO<T>{
     private boolean error;
     private T respuesta;
 
-
 }

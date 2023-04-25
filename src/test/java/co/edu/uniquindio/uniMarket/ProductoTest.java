@@ -63,16 +63,8 @@ public class ProductoTest {
 
         );
 
-        //Se llama el servicio para crear el producto
-       // int codigoProducto = productoServicio.crearProducto(productoDTO);
-            //Se crea el producto y en nuevo se tiene como el nuevo registro
+            //Se llama el servicio para crear el producto
             int nuevo = productoServicio.crearProducto(productoDTO);
-            /*//Assertions.assertNotNull(nuevo);
-
-            //Se espera que el servicio retorne el código del nuevo producto
-            //Assertions.assertTrue(true);
-
-             */
 
         //Se espera que el servicio retorne el código del nuevo producto
         Assertions.assertNotEquals(1,nuevo);
@@ -216,6 +208,23 @@ public class ProductoTest {
 
     //------------------------ FIN CRUD TEST PRODUCTO ----------------------------------//
 
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void actualizarUnidadesTest() throws Exception{
+
+        //Se llama el servicio para obtener el producto dado el codigo
+        Producto producto = productoServicio.obtener(1);
+        //set las unidades
+        producto.setUnidades(4);
+
+        //Se llama el servicio para actualizar las nuevas unidades del producto
+        int nuevasUnidades = productoServicio.actualizarUnidades(producto, 4);
+
+        //Comprobamos que se haya actualizado las anteriores unidades con las nuevas
+        Assertions.assertNotEquals(5,nuevasUnidades);
+    }
+
     @Test
     @Sql("classpath:dataset.sql")
     public void actualizarEstadoTest() throws Exception{
@@ -289,7 +298,6 @@ public class ProductoTest {
         Assertions.assertTrue(true);
 
     }
-
 
     @Test
     @Sql("classpath:dataset.sql")

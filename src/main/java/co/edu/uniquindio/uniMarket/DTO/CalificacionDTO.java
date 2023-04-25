@@ -15,4 +15,6 @@ public class CalificacionDTO {
 
     private Integer codigoUsuario;
 
+    private Integer codigoProducto;
+
 }

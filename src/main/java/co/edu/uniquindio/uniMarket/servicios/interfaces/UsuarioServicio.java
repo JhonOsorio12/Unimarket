@@ -20,9 +20,9 @@ public interface UsuarioServicio {
 
     boolean cambiarContraseña(String email,String passwordNueva) throws Exception;
 
-    CalificacionGetDTO asignarCalificacion(CalificacionDTO calificacionDTO) throws Exception;
+    int asignarCalificacion(CalificacionDTO calificacionDTO) throws Exception;
 
-    Double promedioPelicula (ProductoDTO productoDTO);
+    Double promedioProducto (ProductoDTO productoDTO) throws Exception;
 
 
 

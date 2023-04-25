@@ -28,8 +28,7 @@ public class WebSecurityConfig {
         http.csrf().disable();
         http.cors();
         http.authorizeHttpRequests()
-                .requestMatchers("/api/auth/**", "/api/imagenes/**").permitAll()
-                .anyRequest().authenticated();
+                .requestMatchers("/api/auth/**",  "/api/imagenes/**", "/api/usuario/**").permitAll().anyRequest().authenticated();
         //http.authorizeHttpRequests().requestMatchers("/api/productos/**").permitAll()
               //  .anyRequest().authenticated();
 

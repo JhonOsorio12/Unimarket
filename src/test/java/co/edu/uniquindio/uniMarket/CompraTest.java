@@ -23,8 +23,6 @@ public class CompraTest {
     @Autowired
     private CompraServicio compraServicio;
 
-
-
     @Test
     @Sql("classpath:dataset.sql")
     public void crearCompraTest() throws Exception{
@@ -40,7 +38,7 @@ public class CompraTest {
 
         );
 
-        int compra = compraServicio.crearCompra2(compraDTO);
+        int compra = compraServicio.crearCompra(compraDTO);
         Assertions.assertEquals(compra, compraServicio.obtenerCompra(compra).getCodigoCompra());
 
     }

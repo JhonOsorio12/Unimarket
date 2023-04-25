@@ -1,10 +1,8 @@
 package co.edu.uniquindio.uniMarket.controladores;
 
+import co.edu.uniquindio.uniMarket.DTO.EmailDTO;
 import co.edu.uniquindio.uniMarket.DTO.MensajeDTO;
-import co.edu.uniquindio.uniMarket.DTO.SesionDTO;
-import co.edu.uniquindio.uniMarket.DTO.TokenDTO;
-import co.edu.uniquindio.uniMarket.servicios.interfaces.SesionServicio;
-import jakarta.validation.Valid;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.EmailServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/sesion")
+@RequestMapping("/api/email")
 @AllArgsConstructor
-public class SesionControlador {
+public class EmailControlador {
 
-    private final SesionServicio sesionServicio;
+    private final EmailServicio emailServicio;
 
-    @PostMapping("/login")
-    public ResponseEntity<MensajeDTO> login(@Valid @RequestBody SesionDTO sesionDTO) throws Exception{
+    @PostMapping("/enviar")
+    public ResponseEntity<MensajeDTO> enviarEmail(@RequestBody EmailDTO emailDTO) throws Exception{
+            emailServicio.enviarEmail(emailDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
-                HttpStatus.CREATED,
+                HttpStatus.OK,
                 false,
-                sesionServicio.login(sesionDTO)));
+                "El email fue enviado correctamente"));
     }
 
 }

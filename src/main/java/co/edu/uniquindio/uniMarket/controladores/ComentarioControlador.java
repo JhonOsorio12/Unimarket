@@ -17,12 +17,18 @@ public class ComentarioControlador {
 
     @PostMapping("/crear")
     public ResponseEntity<MensajeDTO> crearComentario(@RequestBody ComentarioDTO comentarioDTO) throws Exception{
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(HttpStatus.CREATED, false, comentarioServicio.crearComentario(comentarioDTO)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
+                HttpStatus.CREATED,
+                false,
+                comentarioServicio.crearComentario(comentarioDTO)));
     }
 
     @GetMapping("/listar/{codigoProducto}")
     public ResponseEntity<MensajeDTO> listarComentarios(@PathVariable Integer codigoProducto) throws Exception{
-        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK, false, comentarioServicio.listarComentarios(codigoProducto)));
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                comentarioServicio.listarComentarios(codigoProducto)));
     }
 
 }
