@@ -27,16 +27,16 @@ insert into producto_categoria values (2, "ZAPATOS");
 insert into producto_categoria values (5, "ZAPATOS");
 
 /*idProducto - urlimagen - imagenkey*/
-insert into producto_imagen values (1, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 1);
-insert into producto_imagen values (1, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 2);
-insert into producto_imagen values (2, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 3);
-insert into producto_imagen values (2, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 4);
-insert into producto_imagen values (3, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 5);
-insert into producto_imagen values (3, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 6);
-insert into producto_imagen values (4, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 7);
-insert into producto_imagen values (4, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 8);
-insert into producto_imagen values (5, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 9);
-insert into producto_imagen values (5, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", 10);
+insert into producto_imagen values (1, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (1, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (2, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (2, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (3, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (3, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (4, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (4, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (5, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
+insert into producto_imagen values (5, "https://res.cloudinary.com/dfqd0ixdc/image/upload/v1682484847/co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek.jpg", "co/edu/uniquindio/unimarket/Unimarket/zl93gily8hg8gbhy9lek");
 
 /*
 * codigo del usuario y del producto
