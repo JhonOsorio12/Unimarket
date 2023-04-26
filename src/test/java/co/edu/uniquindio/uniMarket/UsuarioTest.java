@@ -60,20 +60,6 @@ public class UsuarioTest {
         //para comprobar que ya no existe.
         Assertions.assertThrows(Exception.class, () -> usuarioServicio.obtenerUsuario(codigoBorrado));
 
-        /*
-        //Para eliminar el usuario primero se debe crear
-        UsuarioDTO usuarioDTO = new UsuarioDTO("pepe@gmail.com", "Pepito", "1234", "calle 12", "4568");
-        int codigo = usuarioServicio.registrarUsuario(usuarioDTO);
-
-        //Una vez creado lo borramos
-        int codigoBorrado = usuarioServicio.eliminarUsuario(codigo);
-
-        //Si intentamos buscar un usuario con el código del usuario borrado
-        // debemos obtener una excepción indicando que ya no existe
-        Assertions.assertThrows(Exception.class, () -> usuarioServicio.obtenerUsuario(codigoBorrado));
-        */
-
-
     }
 
     @Test
@@ -103,18 +89,6 @@ public class UsuarioTest {
 
         //Comprobamos de la dirección que está en la base de datos coincide con la que esperamos
         Assertions.assertEquals("calle 12", usuario.getDireccion());
-
-        /*
-        //Para obtener el usuario primero se debe crear
-        UsuarioDTO usuarioDTO = new UsuarioDTO("pepe12@gmail.com", "Pepito Perez", "1234", "calle 12", "4589");
-        int codigoNuevo = usuarioServicio.registrarUsuario(usuarioDTO);
-
-        //Se llama el servicio para obtener el usuario completo dado su código
-        UsuarioGetDTO usuarioGetDTO = usuarioServicio.obtenerUsuario(codigoNuevo);
-
-        //Comprobamos de la dirección que está en la base de datos coincide con la que esperamos
-        Assertions.assertEquals("calle 12", usuarioGetDTO.getDireccion());
-        */
 
     }
 

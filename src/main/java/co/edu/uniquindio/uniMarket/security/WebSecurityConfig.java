@@ -32,8 +32,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll();
         http.authorizeHttpRequests().requestMatchers("api/moderador/**").hasAuthority("MODERADOR");
         http.authorizeHttpRequests().requestMatchers("/api/imagenes/**", "/api/usuario/**"
-                ,"/api/producto/**", "/api/comentario", "/api/centroayuda/**",
-                "/api/compra/**").permitAll().anyRequest().authenticated();
+                ,"/api/producto/**", "/api/comentario/**", "/api/centroayuda/**",
+                "/api/compra/**").hasAuthority("CLIENTE").anyRequest().authenticated();
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

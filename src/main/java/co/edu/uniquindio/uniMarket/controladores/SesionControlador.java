@@ -20,8 +20,10 @@ public class SesionControlador {
 
     private final SesionServicio sesionServicio;
 
+    //Se crea el postmapping
     @PostMapping("/login")
     public ResponseEntity<MensajeDTO> login(@Valid @RequestBody SesionDTO sesionDTO) throws Exception{
+        //Se llama el servicio y se retorna el body con la respuesta
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(
                 HttpStatus.CREATED,
                 false,

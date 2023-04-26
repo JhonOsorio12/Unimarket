@@ -38,14 +38,16 @@ public class CompraServicioImpl implements CompraServicio {
 
     @Override
     public int crearCompra(CompraDTO compraDTO) throws Exception {
-
+        //Se inicializa la compra y el usuario
         Compra compra;
         Usuario usuario;
 
         try {
+            //Se obtiene el usuario por codigo y crea una lista con lista que trae la compra
             usuario = usuarioServicio.obtener(compraDTO.getCodigoUsuario());
             List<DetalleCompraDTO> detalles = compraDTO.getDetalleCompraDTO();
 
+            //Sé instancia la compra y se le setea el usuario, mediopago, fechaCreacion y se calcula el valortotal
             compra = new Compra();
             compra.setUsuario(usuario);
             compra.setMedioPago(compraDTO.getMetodoPago());
@@ -54,38 +56,46 @@ public class CompraServicioImpl implements CompraServicio {
             float valorTotal = calcularValorTotal(detalles);
             compra.setValorTotal(valorTotal);
 
+            //Se guarda la compra
             Compra compraGuardada = compraRepo.save(compra);
+            //Se crea una lista vacia para los detalles guardados
             ArrayList<DetalleCompra> detallesGuardados = new ArrayList<>();
 
+            //Se usa un for para recorrer la lista para luego ir agregando a la otr lista
             for (DetalleCompraDTO detalleCompraDTO : compraDTO.getDetalleCompraDTO()) {
-
+                //Se llama el servicio para obtener el codigo del producto en el detalle de la compra
                 Producto producto = productoServicio.obtener( detalleCompraDTO.getCodigoProducto() );
 
+                //Se valida que el usuario no sea el mismo vendedor que quiere comprar su propio producto
                 if (producto.getVendedor().getCodigo() != usuario.getCodigo()) {
 
+                    //Sé instancia la lista y se le setea la compra, precio, unidades y el producto
                     DetalleCompra detalleCompra = new DetalleCompra();
                     detalleCompra.setCompraDT(compraGuardada);
                     detalleCompra.setPrecioProducto(detalleCompraDTO.getPrecio());
                     detalleCompra.setUnidades(detalleCompraDTO.getUnidades());
                     detalleCompra.setProductoDT( producto );
 
+                    //Se guarda el detalle de la compra en la lista
                     detallesGuardados.add(detalleCompraRepo.save(detalleCompra));
                     
                 }else {
                     throw new ResourceNotFoundException("No puede comprar su propio producto");
                 }
             }
-
+            //Se usa este for para enviar el detalle de la venta a cada vendedor
             for(DetalleCompra dc : detallesGuardados){
                 emailServicio.enviarEmail(new EmailDTO("Compra", "Su venta se realizó con éxito, los datos de la venta fueron: "
                         +compraGuardada.getCodigo()+" "+ (dc.getPrecioProducto()*dc.getUnidades()) +" "+compraGuardada.getFechaCreacion()+" "+compraGuardada.getMedioPago()+" "
                         + compraGuardada.getUsuario().getNombre() , dc.getProductoDT().getVendedor().getEmail()) );
             }
 
+            //Se le envia el detalle de la compra al usuario
             emailServicio.enviarEmail(new EmailDTO("Compra", "Su compra se realizó con éxito, los datos de la compra fueron: "
                     +compraGuardada.getCodigo()+" "+ compraGuardada.getValorTotal()+" "+compraGuardada.getFechaCreacion()+" "+compraGuardada.getMedioPago()+" "
                     + compraGuardada.getUsuario().getNombre() , compraGuardada.getUsuario().getEmail()));
 
+            //Se guarda la compra
             return compraRepo.save(compra).getCodigo();
 
         } catch (Exception e) {
@@ -93,7 +103,6 @@ public class CompraServicioImpl implements CompraServicio {
         }
 
     }
-
 
 
     @Override
@@ -133,21 +142,6 @@ public class CompraServicioImpl implements CompraServicio {
         return compra.get();
     }
 
-
-
-    private CompraGetDTO convertir(Compra compra, DetalleCompraDTO detalleCompraDTO){
-
-        CompraGetDTO compraDTO = new CompraGetDTO(
-                compra.getCodigo(),
-                compra.getFechaCreacion(),
-                compra.getValorTotal(),
-                compra.getMedioPago(),
-                compra.getUsuario().getCodigo(),
-                new ArrayList<>()
-        );
-        return null;
-    }
-
     private CompraGetDTO convertir(Compra compra){
 
         CompraGetDTO compraDTO = new CompraGetDTO(
@@ -166,15 +160,7 @@ public class CompraServicioImpl implements CompraServicio {
         return new ArrayList<>();
     }
 
-    /*
-    private Compra convertir(CompraDTO compraDTO){
 
-        Compra compra = new Compra();
-        compra.setMedioPago(compraDTO.getMetodoPago());
-        compra.setFechaCreacion(LocalDateTime.now());
-        //compra.setDetalleCompra();
-        return compra;
-    }*/
 
     public Float calcularValorTotal(List<DetalleCompraDTO> detalleCompraDTO){
 
