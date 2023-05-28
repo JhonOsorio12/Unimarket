@@ -7,7 +7,7 @@ insert into usuario values (5,  "juan@gmail.com", "Juan", "$2a$10$RcMreAWaQiP2AJ
 
 /*idModerador - email - nombre - password*/
 insert into moderador values (1, "pedro@gmail.com", "Pedro", "$2a$10$RcMreAWaQiP2AJ46pBPVv./L1t0KMp2u34NaZNAWD/S6Glod..WjW");
-insert into moderador values (2, "jose@gmail.com", "José", "$2a$10$RcMreAWaQiP2AJ46pBPVv./L1t0KMp2u34NaZNAWD/S6Glod..WjW");
+insert into moderador values (2, "jose@gmail.com", "Jose", "$2a$10$RcMreAWaQiP2AJ46pBPVv./L1t0KMp2u34NaZNAWD/S6Glod..WjW");
 insert into moderador values (3, "frank@gmail.com", "Frank", "$2a$10$RcMreAWaQiP2AJ46pBPVv./L1t0KMp2u34NaZNAWD/S6Glod..WjW");
 insert into moderador values (4, "fabian@gmail.com", "Fabian", "$2a$10$RcMreAWaQiP2AJ46pBPVv./L1t0KMp2u34NaZNAWD/S6Glod..WjW");
 insert into moderador values (5, "felipe@gmail.com",  "Felipe", "$2a$10$RcMreAWaQiP2AJ46pBPVv./L1t0KMp2u34NaZNAWD/S6Glod..WjW");

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.uniMarket;
 
+import co.edu.uniquindio.uniMarket.DTO.ImagenDTO;
 import co.edu.uniquindio.uniMarket.DTO.ProductoDTO;
 import co.edu.uniquindio.uniMarket.DTO.ProductoGetDTO;
 import co.edu.uniquindio.uniMarket.DTO.UsuarioDTO;
@@ -45,10 +46,10 @@ public class ProductoTest {
         //El servicio del usuario nos retorna el código con el que quedó en la base de datos
         int codigoVendedor = usuarioServicio.registrarUsuario(usuarioDTO);
 
-        //Se crea la colección de imágenes para el producto
-        Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("imagen1", "http://www.google.com/images/imagenasus.png");
-        imagenes.put("imagen2", "http://www.google.com/images/imagenasus_original.png");
+        //Se crea la lista de imágenes para el producto
+        List<ImagenDTO> imagenes = new ArrayList<>();
+        imagenes.add(new ImagenDTO("imagen1", "http://www.google.com/images/imagenasus.png"));
+        imagenes.add(new ImagenDTO("imagen2", "http://www.google.com/images/imagenasus_original.png"));
 
         //Se crea el producto y se usa el código dado por el servicio de registro de usuario para asignar el vendedor
         ProductoDTO productoDTO = new ProductoDTO(
@@ -90,10 +91,10 @@ public class ProductoTest {
     @Sql("classpath:dataset.sql")
     public void actualizarProductoTest()throws Exception {
 
-        //Se crea la colección de imágenes para el producto
-        Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("imagen1", "http://www.google.com/images/imagenasus.png");
-        imagenes.put("imagen2", "http://www.google.com/images/imagenasus_original.png");
+        //Se crea la lista de imágenes para el producto
+        List<ImagenDTO> imagenes = new ArrayList<>();
+        imagenes.add(new ImagenDTO("imagen1", "http://www.google.com/images/imagenasus.png"));
+        imagenes.add(new ImagenDTO("imagen2", "http://www.google.com/images/imagenasus_original.png"));
 
         //El servicio de actualizar nos retorna el producto
         ProductoGetDTO productoActualizado = productoServicio.actualizarProducto(1, new ProductoDTO(

@@ -1,6 +1,8 @@
 package co.edu.uniquindio.uniMarket.security.servicios;
 
 import java.security.Key;
+
+import co.edu.uniquindio.uniMarket.security.modelo.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -33,6 +35,8 @@ public class JwtService {
             expiration) {List<String> roles =
             userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         extraClaims.put("roles", roles);
+        extraClaims.put("sub_code",  ((UserDetailsImpl) userDetails).getCodigo());
+
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

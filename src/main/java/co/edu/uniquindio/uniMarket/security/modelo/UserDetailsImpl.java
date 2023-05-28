@@ -16,6 +16,7 @@ import java.util.List;
 public class UserDetailsImpl implements UserDetails {
 
     private String username, password;
+    private int codigo;
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(Persona user){
@@ -27,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
             authorities.add( new SimpleGrantedAuthority("MODERADOR"));
         }
 
-        return new UserDetailsImpl(user.getEmail(), user.getPassword(), authorities);
+        return new UserDetailsImpl(user.getEmail(), user.getPassword(), user.getCodigo(), authorities);
 
     }
 
@@ -66,4 +67,11 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 }

@@ -45,7 +45,7 @@ public class ProductoGetDTO {
     private Integer unidades;
 
     @NotNull
-    private Map<String, String> imagenes;
+    private List<ImagenDTO> imagenes;
 
     @NotNull
     private List<Categoria> categorias;

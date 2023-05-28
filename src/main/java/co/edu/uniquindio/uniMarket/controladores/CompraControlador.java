@@ -5,6 +5,7 @@ import co.edu.uniquindio.uniMarket.DTO.CompraGetDTO;
 import co.edu.uniquindio.uniMarket.DTO.MensajeDTO;
 import co.edu.uniquindio.uniMarket.entidades.Compra;
 import co.edu.uniquindio.uniMarket.servicios.interfaces.CompraServicio;
+import co.edu.uniquindio.uniMarket.servicios.interfaces.ProductoServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,33 @@ import java.util.List;
 public class CompraControlador {
 
     private final CompraServicio compraServicio;
+
+    private final ProductoServicio productoServicio;
+
+    /*
+    @GetMapping("/listar/{mes}/{anio}")
+    public ResponseEntity<MensajeDTO> listarValorVentas(@PathVariable int mes ,@PathVariable int anio){
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                productoServicio.listarValorVentas( mes,  anio)));
+    }
+
+    @GetMapping("/listar/{codigoUsuario}")
+    public ResponseEntity<MensajeDTO> listarProductosXUsuario(@PathVariable Integer codigoUsuario){
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                productoServicio.listarProductosXUsuario(codigoUsuario)));
+    }
+
+    @GetMapping("/obtenerproductocategoria")
+    public ResponseEntity<MensajeDTO> contarCantidadProductoCategoria(){
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
+                HttpStatus.OK,
+                false,
+                productoServicio.contarCantidadProductoCategoria()));
+    }*/
 
     //Se crea el postmapping
     @PostMapping("/crear")

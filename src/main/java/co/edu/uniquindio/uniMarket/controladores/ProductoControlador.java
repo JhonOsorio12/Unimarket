@@ -23,7 +23,7 @@ public class ProductoControlador {
     private ProductoServicio productoServicio;
 
     //Se crea el postmapping
-    @PostMapping("/crear")
+    @PostMapping("/crearproducto")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> crearProducto(@Valid @RequestBody ProductoDTO productoDTO) throws Exception{
         //Se llama el servicio para crear el producto
@@ -63,12 +63,12 @@ public class ProductoControlador {
     @GetMapping("/obtener/{codigoProducto}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> obtenerProducto(@PathVariable int codigoProducto) throws Exception{
-        productoServicio.obtenerProducto(codigoProducto);
+
         //Se retorna el body con la respuesta
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(
                 HttpStatus.OK,
                 false,
-                "Se obtuvo el producto correctamente"));
+                productoServicio.obtenerProducto(codigoProducto)));
     }
 
     //Se crea el putmapping
@@ -85,7 +85,7 @@ public class ProductoControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/listarcategoria/{categoria}")
+    @GetMapping("/listarproductocategoria/{categoria}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> listarProductosCategoria(@PathVariable Categoria categoria){
         //Se llama el servicio para listar las categorias y se retorna el body con la respuesta

@@ -28,12 +28,15 @@ public class WebSecurityConfig {
 
         http.csrf().disable();
         http.cors();
+        //http.authorizeHttpRequests().anyRequest().permitAll();
         http.authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll();
+                .requestMatchers("/api/auth/**", "/api/categorias/**", "/api/listarproductocategoria/**",
+                        "/api/listarproductos/**", "/api/listarnombreprecio/**", "/api/listarnombre/**",
+                        "/api/listarproductousuario/**", "").permitAll();
         http.authorizeHttpRequests().requestMatchers("api/moderador/**").hasAuthority("MODERADOR");
         http.authorizeHttpRequests().requestMatchers("/api/imagenes/**", "/api/usuario/**"
                 ,"/api/producto/**", "/api/comentario/**", "/api/centroayuda/**",
-                "/api/compra/**").hasAuthority("CLIENTE").anyRequest().authenticated();
+                "/api/compra/**", "/api/crearproductos/**", "/api/obtener/**").hasAuthority("CLIENTE").anyRequest().authenticated();
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

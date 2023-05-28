@@ -1,6 +1,7 @@
 package co.edu.uniquindio.uniMarket.servicios.implementacion;
 
 import co.edu.uniquindio.uniMarket.DTO.DetalleCompraGetDTO;
+import co.edu.uniquindio.uniMarket.DTO.ImagenDTO;
 import co.edu.uniquindio.uniMarket.DTO.ProductoDTO;
 import co.edu.uniquindio.uniMarket.DTO.ProductoGetDTO;
 import co.edu.uniquindio.uniMarket.entidades.*;
@@ -15,9 +16,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -38,7 +37,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setUnidades(productoDTO.getUnidades());
         producto.setPrecio(productoDTO.getPrecio());
         producto.setVendedor(usuarioServicio.obtener(productoDTO.getCodigoVendedor()));
-        producto.setImagen(productoDTO.getImagenes());
+        producto.setImagen(convertir(productoDTO.getImagenes()));
         producto.setCategoria(productoDTO.getCategorias());
         producto.setActivo(Activo.INACTIVO);
         producto.setFechaCreado(LocalDateTime.now());
@@ -68,7 +67,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setUnidades(productoDTO.getUnidades());
         producto.setPrecio(productoDTO.getPrecio());
         //producto.setVendedor(usuarioServicio.obtener(productoDTO.getCodigoVendedor()));
-        producto.setImagen(productoDTO.getImagenes());
+        producto.setImagen(convertir(productoDTO.getImagenes()));
         producto.setCategoria(productoDTO.getCategorias());
 
         return convertir(producto);
@@ -168,13 +167,41 @@ public class ProductoServicioImpl implements ProductoServicio {
                 producto.getNombre(),
                 producto.getPrecio(),
                 producto.getUnidades(),
-                producto.getImagen(),
+                convertir(producto.getImagen()),
                 producto.getCategoria(),
                 producto.getVendedor().getCodigo()
         );
 
         return productoDTO;
 
+    }
+
+    private Map<String, String> convertir(List<ImagenDTO> lista){
+        Map<String, String> resultado = new HashMap<>();
+
+        for (ImagenDTO imagenDTO : lista){
+            String clave = imagenDTO.getIdImagen();
+            String valor = imagenDTO.getUrl();
+            resultado.put(clave,valor);
+        }
+        return resultado;
+    }
+
+    private List<ImagenDTO> convertir(Map<String, String> map){
+        List<ImagenDTO> lista = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : map.entrySet()){
+            String clave = entry.getKey();
+            String valor = entry.getValue();
+
+            ImagenDTO imagenDTO = new ImagenDTO(clave, valor);
+            imagenDTO.setIdImagen(clave);
+            imagenDTO.setUrl(valor);
+
+            lista.add(imagenDTO);
+        }
+
+        return lista;
     }
 
     private List<ProductoGetDTO> convertirProducto(List<Producto> productos){

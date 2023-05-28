@@ -9,6 +9,8 @@ public interface SesionServicio {
 
     TokenDTO login(SesionDTO sesionDTO);
 
+    TokenDTO refreshToken(TokenDTO tokenDTO) throws Exception;
+
     void logout(int codigoUsuario);
 
 }
