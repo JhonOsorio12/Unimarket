@@ -16,7 +16,7 @@ public class CentroAyudaControlador {
     private final CentroAyudaServicio centroAyudaServicio;
 
     //Se crea el postmapping
-    @PostMapping("/crear")
+    @PostMapping("/crearcentroayuda")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> crearMensaje(@RequestBody CentroAyudaDTO centroAyudaDTO) throws Exception {
         //Se llama el servicio para crear el mensaje
@@ -29,7 +29,7 @@ public class CentroAyudaControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/listar/{codigoCentroAyuda}")
+    @GetMapping("/listarcentroayuda/{codigoCentroAyuda}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> listarMensajesCentroAyuda(@PathVariable Integer codigoCentroAyuda) throws Exception {
         //Se llama el servicio para listar los mensajes y se retorna el body con la respuesta

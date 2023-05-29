@@ -16,7 +16,7 @@ public class ComentarioControlador {
     private final ComentarioServicio comentarioServicio;
 
     //Se crea el postmapping
-    @PostMapping("/crear")
+    @PostMapping("/crearcomentario")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> crearComentario(@RequestBody ComentarioDTO comentarioDTO) throws Exception{
         //Se llama el servicio para crear el comentario y se retorna el body con la respuesta
@@ -27,7 +27,7 @@ public class ComentarioControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/listar/{codigoProducto}")
+    @GetMapping("/listarcomentario/{codigoProducto}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> listarComentarios(@PathVariable Integer codigoProducto) throws Exception{
         //Se llama el servicio para listar los comentarios y se retorna el body con la respuesta

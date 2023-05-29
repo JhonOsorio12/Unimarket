@@ -32,7 +32,7 @@ public class UsuarioControlador {
     }
 
     //Se crea el putmapping
-    @PutMapping("/actualizar/{codigoUsuario}")
+    @PutMapping("/actualizarusuario/{codigoUsuario}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> actualizarUsuario(@PathVariable int codigoUsuario, @Valid @RequestBody UsuarioDTO usuarioDTO)throws Exception{
         //Se llama el servicio para actualizar el usuario
@@ -45,7 +45,7 @@ public class UsuarioControlador {
     }
 
     //Se crea el deletemapping
-    @DeleteMapping("/eliminar/{codigoUsuario}")
+    @DeleteMapping("/eliminarusuario/{codigoUsuario}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> eliminarUsuario(@PathVariable int codigoUsuario) throws Exception{
         //Se llama el servicio para eliminar el usuario
@@ -58,7 +58,7 @@ public class UsuarioControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/obtener/{codigoUsuario}")
+    @GetMapping("/obtenerusuario/{codigoUsuario}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> obtenerUsuario(@PathVariable int codigoUsuario) throws Exception{
         //Se llama el servicio para obtener el usuario

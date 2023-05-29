@@ -36,7 +36,7 @@ public class ProductoControlador {
     }
 
     //Se crea el putmapping
-    @PutMapping("/actualizar/{codigoProducto}")
+    @PutMapping("/actualizarproducto/{codigoProducto}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> actualizarProducto(@PathVariable Integer codigoProducto, @Valid @RequestBody ProductoDTO productoDTO) throws Exception{
         productoServicio.actualizarProducto(codigoProducto, productoDTO);
@@ -48,7 +48,7 @@ public class ProductoControlador {
     }
 
     //Se crea el deletemapping
-    @DeleteMapping("/eliminar/{codigoProducto}")
+    @DeleteMapping("/eliminarproducto/{codigoProducto}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> eliminarProducto(@PathVariable int codigoProducto) throws Exception{
         productoServicio.eliminarProducto(codigoProducto);
@@ -60,7 +60,7 @@ public class ProductoControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/obtener/{codigoProducto}")
+    @GetMapping("/obtenerproducto/{codigoProducto}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> obtenerProducto(@PathVariable int codigoProducto) throws Exception{
 

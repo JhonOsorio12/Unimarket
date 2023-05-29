@@ -48,7 +48,7 @@ public class CompraControlador {
     }*/
 
     //Se crea el postmapping
-    @PostMapping("/crear")
+    @PostMapping("/crearcompra")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> crearCompra(@RequestBody CompraDTO compraDTO) throws Exception{
         //Se llama el servicio para crear la compra
@@ -61,7 +61,7 @@ public class CompraControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/listar/{codigoUsuario}")
+    @GetMapping("/listarcompra/{codigoUsuario}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> listarComprasUsuario(@PathVariable Integer codigoUsuario) throws Exception{
         //Se llama el servicio para listar la compra y se retorna el body con la respuesta
@@ -72,7 +72,7 @@ public class CompraControlador {
     }
 
     //Se crea el getmapping
-    @GetMapping("/obtener/{codigoCompra}")
+    @GetMapping("/obtenercompra/{codigoCompra}")
     //se trae el metodo con sus parametros y se le hacen las anotaciones correspondientes
     public ResponseEntity<MensajeDTO> obtenerCompra(@PathVariable int codigoCompra) throws Exception{
         //Se llama el servicio para obtener la compra y se retorna el body con la respuesta
