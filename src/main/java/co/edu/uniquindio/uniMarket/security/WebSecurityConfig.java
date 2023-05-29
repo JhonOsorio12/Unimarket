@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                 "/api/actualizarestado/**", "/api/refresh/**").hasAuthority("MODERADOR");
         http.authorizeHttpRequests().requestMatchers("/api/imagenes/**", "/api/usuario/**"
                 ,"/api/producto/**", "/api/comentario/**", "/api/centroayuda/**",
-                "/api/compra/**", "/api/crearproductos/**", "/api/obtener/**",
+                "/api/compra/**", "/api/crearproducto/**", "/api/obtener/**",
                 "/api/crearcompra/**", "/api/listarcompra/**", "/api/crearcompra/**",
                 "/api/obtenercompra/**", "/api/actualizarproducto/**", "/api/eliminarproducto/**",
                 "/api/obtenerproducto/**", "/api/listarproductosfavoritos/**", "/api/crearfavorito/**",
