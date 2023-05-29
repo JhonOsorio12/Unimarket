@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 description 'Breve descripción del proyecto'
 sourceCompatibility = '17'
 
+3
 
 group'Universidad del Quindío'
 description'Programa de Ingeniería de Sistemas y Computación'
@@ -24,7 +25,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.tools.build:gradle:3.0.0'
     implementation 'com.cloudinary:cloudinary-http44:1.33.0'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
